@@ -3,125 +3,129 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personal Projects</title>
-    <style>
-      :root {
-        color-scheme: light;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background: #f4efe6;
-        color: #1f1a14;
-        --card: #fffaf2;
-        --border: #d6c8b2;
-        --muted: #6f6558;
-        --accent: #24553c;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        background: linear-gradient(180deg, #f4efe6 0%, #e8dece 100%);
-      }
-
-      main {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 48px 24px 64px;
-      }
-
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(2rem, 4vw, 3.4rem);
-      }
-
-      p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      .grid {
-        display: grid;
-        gap: 18px;
-        margin-top: 32px;
-      }
-
-      .card {
-        display: block;
-        text-decoration: none;
-        color: inherit;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 22px;
-        box-shadow: 0 12px 30px rgba(62, 45, 24, 0.08);
-      }
-
-      .card:hover {
-        border-color: var(--accent);
-      }
-
-      .eyebrow {
-        display: inline-block;
-        margin-bottom: 8px;
-        color: var(--accent);
-        font-size: 0.9rem;
-      }
-
-      h2 {
-        margin: 0 0 10px;
-        font-size: 1.5rem;
-      }
-
-      .hint {
-        margin-top: 28px;
-        font-size: 0.95rem;
-      }
-    </style>
+    <title>Michael Trounce</title>
+    <link rel="stylesheet" href="./portfolio/styles.css" />
   </head>
   <body>
-    <main>
-      <p class="eyebrow">Personal Projects</p>
-      <h1>Small projects, each in its own folder.</h1>
-      <p>
-        This repository is organized as a collection. Start from the links
-        below to open each project.
-      </p>
-
-      <section class="grid" aria-label="Projects">
-        <a class="card" href="./snake/">
-          <span class="eyebrow">Project 01</span>
-          <h2>Classic Snake</h2>
-          <p>
-            Minimal browser-based Snake with keyboard controls, score, restart,
-            and tests for the game logic.
-          </p>
-        </a>
-        <a class="card" href="./portfolio/">
-          <span class="eyebrow">Project 02</span>
-          <h2>Personal Portfolio</h2>
-          <p>
-            A clean portfolio starter page for showcasing projects, background,
-            and contact details.
-          </p>
-        </a>
-        <a class="card" href="./economy-sim/">
-          <span class="eyebrow">Project 03</span>
-          <h2>Economy Sim</h2>
-          <p>
-            A turn-based policy game about tax, spending, borrowing, debt, and
-            GDP growth over an eight-year term.
-          </p>
-        </a>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Personal Home</p>
+        <h1>Michael Trounce</h1>
+        <p class="intro">
+          Builder of EM and Global Macro products, and maker of playful
+          personal projects under the <span class="tricksy-word">Tricksy</span>
+          label.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects">View projects</a>
+          <a href="#contact" class="secondary">Get in touch</a>
+        </div>
       </section>
 
-      <p class="hint">
-        Local dev: run <code>npm start</code> from the repo root, then open the
-        project you want to preview.
-      </p>
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">About</p>
+          <h2>Building practical tools with a markets mindset.</h2>
+        </div>
+        <div class="about-grid">
+          <article class="card">
+            <h3>What I build</h3>
+            <p>
+              I work on products shaped by real-world financial workflows, with
+              a focus on clarity, speed, and usefulness.
+            </p>
+          </article>
+          <article class="card">
+            <h3>How I work</h3>
+            <p>
+              I like moving from idea to working prototype quickly, keeping the
+              path simple and the output easy to understand.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Portfolio scope</h3>
+            <p>
+              I do not own the IP of the professional products that I have
+              built, so only personal projects are showcased here. I group my
+              games, playful experiments, and personal fun builds under the
+              <span class="tricksy-word">Tricksy</span> label.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-heading">
+          <p class="eyebrow">Projects</p>
+          <h2>
+            Selected personal projects under
+            <span class="tricksy-word">Tricksy</span>.
+          </h2>
+        </div>
+        <div class="projects">
+          <article class="project-card">
+            <div>
+              <p class="project-type">
+                <span class="tricksy-word tricksy-badge">Tricksy</span>
+                flagship
+              </p>
+              <h3>Lula</h3>
+              <p>
+                Lula is part of <span class="tricksy-word">Tricksy</span>, the
+                label I use to collect together my little games, personal
+                experiments, and fun side projects. It is a macro strategy game
+                with Politician and Trader variants, daily challenges, and a
+                live leaderboard.
+              </p>
+            </div>
+            <a href="./Lula/">Open project</a>
+          </article>
+          <article class="project-card">
+            <div>
+              <p class="project-type">
+                <span class="tricksy-word tricksy-badge">Tricksy</span> arcade
+                build
+              </p>
+              <h3>Classic Snake</h3>
+              <p>
+                A minimal browser-based Snake game that sits alongside Lula as
+                part of the same <span class="tricksy-word">Tricksy</span>
+                collection of playful personal work. It was the first thing I
+                built when I started using Codex, after it suggested a simple
+                get-started project.
+              </p>
+            </div>
+            <a href="./snake/">Open project</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section-heading">
+          <p class="eyebrow">Contact</p>
+          <h2>Let’s connect.</h2>
+        </div>
+        <div class="contact-card">
+          <p>
+            I am based in London, UK. If you would like to connect, the best
+            way is by email or LinkedIn.
+          </p>
+          <ul>
+            <li>Email: trounceflow@gmail.com</li>
+            <li>
+              GitHub:
+              <a href="https://github.com/miketrounce">github.com/miketrounce</a>
+            </li>
+            <li>
+              LinkedIn:
+              <a href="https://www.linkedin.com/in/michael-trounce/"
+                >linkedin.com/in/michael-trounce</a
+              >
+            </li>
+            <li>Location: London, UK</li>
+          </ul>
+        </div>
+      </section>
     </main>
   </body>
 </html>

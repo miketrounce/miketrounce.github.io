@@ -18,12 +18,12 @@ Classic browser-based Snake built with plain HTML, CSS, and JavaScript.
 
 A personal portfolio starter page for showcasing work and contact details.
 
-### Economy Sim
+### Lula
 
-- Folder: [`economy-sim/`](/Users/michaeltrounce/Documents/New project/economy-sim)
-- Live site: [https://miketrounce.github.io/Personal-Projects/economy-sim/](https://miketrounce.github.io/Personal-Projects/economy-sim/)
+- Folder: [`Lula/`](/Users/michaeltrounce/Documents/New project/Lula)
+- Live site: [https://miketrounce.github.io/Personal-Projects/Lula/](https://miketrounce.github.io/Personal-Projects/Lula/)
 
-A small policy game about maximizing GDP by choosing tax, spending, and borrowing each year.
+A macro strategy game with Politician and Trader variants, daily challenges, and a live leaderboard.
 
 ## Run locally
 
@@ -47,7 +47,7 @@ npm test
 
 ```text
 Personal-Projects/
-  economy-sim/
+  Lula/
   portfolio/
   snake/
 ```
