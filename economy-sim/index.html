@@ -64,7 +64,7 @@
             <span class="nav-icon" aria-hidden="true">◫</span>
             <span>Analysis</span>
           </a>
-          <a href="#leaderboard-view" class="nav-item" data-view="leaderboard" data-target="leaderboard-view">
+          <a href="./leaderboard/" class="nav-item" data-view="leaderboard-page" data-target="leaderboard-page">
             <span class="nav-icon" aria-hidden="true">★</span>
             <span>Leaderboard</span>
           </a>
@@ -84,7 +84,6 @@
       </aside>
 
       <main class="page">
-        <section id="home-view" class="app-view active-view">
         <section id="hero-card" class="hero-card panel">
           <div class="hero-top">
             <div>
@@ -276,96 +275,9 @@
             </section>
           </aside>
         </section>
-        </section>
-
-        <section id="leaderboard-view" class="app-view leaderboard-view">
-          <section class="leaderboard-hero panel">
-            <div class="section-title">
-              <div>
-                <p class="eyebrow">Leaderboard</p>
-                <h2>Live Economy Ratings</h2>
-              </div>
-            </div>
-            <p class="intro">
-              Track the strongest runs across Politician, Trader, and
-              daily scenarios. Finish a run, submit your score, and see how your
-              macro instincts stack up.
-            </p>
-          </section>
-
-          <section class="leaderboard-layout-full">
-            <section id="leaderboard-panel" class="panel leaderboard-panel">
-              <div class="leaderboard-toolbar">
-                <div>
-                  <p class="eyebrow">Standings</p>
-                  <h3 class="leaderboard-title">Top scores</h3>
-                </div>
-                <div class="leaderboard-filters">
-                  <span class="filter-pill">All Modes</span>
-                  <span class="filter-pill">All Countries</span>
-                </div>
-              </div>
-              <p class="leaderboard-update" id="leaderboard-status">
-                Leaderboard is loading.
-              </p>
-              <div class="leaderboard-table-wrap">
-                <table class="leaderboard-table">
-                  <thead>
-                    <tr>
-                      <th>Rank</th>
-                      <th>Name</th>
-                      <th>Score</th>
-                      <th>GDP</th>
-                      <th>Submitted</th>
-                    </tr>
-                  </thead>
-                  <tbody id="leaderboard"></tbody>
-                </table>
-              </div>
-            </section>
-
-            <aside class="leaderboard-side-rail">
-              <section class="panel rail-panel">
-                <div class="section-title">
-                  <p class="eyebrow">Top Players</p>
-                </div>
-                <div id="leaderboard-highlights" class="highlight-list"></div>
-              </section>
-
-              <section class="panel rail-panel">
-                <div class="section-title">
-                  <p class="eyebrow">Search</p>
-                </div>
-                <label>
-                  <span>Find a player</span>
-                  <input id="leaderboard-search" type="text" placeholder="Search leaderboard" />
-                </label>
-              </section>
-
-              <section class="panel submit-panel">
-                <div class="section-title">
-                  <p class="eyebrow">Submit score</p>
-                  <h2>Share your result</h2>
-                </div>
-                <form id="submit-form" class="policy-form">
-                  <label>
-                    <span>Name</span>
-                    <input id="player-name" name="playerName" type="text" maxlength="40" placeholder="Your name" />
-                  </label>
-                  <p class="status" id="submit-status">
-                    Finish a run to submit your score.
-                  </p>
-                  <div class="actions">
-                    <button type="submit" id="submit-button">Submit score</button>
-                  </div>
-                </form>
-              </section>
-            </aside>
-          </section>
-        </section>
       </main>
     </div>
 
-    <script type="module" src="./src/main.js?v=20260319-4"></script>
+    <script type="module" src="./src/main.js?v=20260319-5"></script>
   </body>
 </html>

@@ -165,18 +165,6 @@ a {
   padding: 24px 24px 48px;
 }
 
-.app-view {
-  display: block;
-}
-
-.hidden-view {
-  display: none;
-}
-
-.active-view {
-  display: block;
-}
-
 .panel,
 .feature-tile,
 .profile-card {
@@ -549,6 +537,18 @@ button.secondary {
   border-color: var(--border-soft);
   background: #3a3733;
   color: #f2ede4;
+}
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #6a8d40;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-weight: 700;
+  background: linear-gradient(180deg, #85b84c 0%, #6ca33c 100%);
+  color: #182010;
 }
 
 .toggle-button.active {

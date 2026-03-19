@@ -26,27 +26,16 @@ const turnCopyElement = document.querySelector("#turn-copy");
 const turnChipAElement = document.querySelector("#turn-chip-a");
 const turnChipBElement = document.querySelector("#turn-chip-b");
 const turnChipCElement = document.querySelector("#turn-chip-c");
-const appViews = document.querySelectorAll(".app-view");
 const navItems = document.querySelectorAll(".nav-item");
-const homeView = document.querySelector("#home-view");
-const leaderboardView = document.querySelector("#leaderboard-view");
 const openLeaderboardButton = document.querySelector("#open-leaderboard-button");
-const leaderboardSearchInput = document.querySelector("#leaderboard-search");
-const leaderboardHighlightsElement = document.querySelector("#leaderboard-highlights");
 const statsElement = document.querySelector("#stats");
 const statusElement = document.querySelector("#status");
 const historyElement = document.querySelector("#history");
 const analysisElement = document.querySelector("#analysis");
 const macroChartElement = document.querySelector("#macro-chart");
 const socialChartElement = document.querySelector("#social-chart");
-const leaderboardElement = document.querySelector("#leaderboard");
-const leaderboardStatusElement = document.querySelector("#leaderboard-status");
 const policyForm = document.querySelector("#policy-form");
 const traderForm = document.querySelector("#trader-form");
-const submitForm = document.querySelector("#submit-form");
-const submitButton = document.querySelector("#submit-button");
-const submitStatusElement = document.querySelector("#submit-status");
-const playerNameInput = document.querySelector("#player-name");
 const restartButton = document.querySelector("#restart-button");
 const traderRestartButton = document.querySelector("#restart-button-trader");
 const advanceButton = document.querySelector("#advance-button");
@@ -80,13 +69,10 @@ const tradeFields = {
 
 let state = createInitialState(DEFAULT_COUNTRY_ID, DEFAULT_MODE);
 let supabase = null;
-let leaderboardEnabled = false;
 let dailyChallengeEnabled = false;
 const todayKey = new Date().toISOString().slice(0, 10);
 let openingTimer = null;
 let transitionTimer = null;
-let currentView = "home";
-let leaderboardEntries = [];
 
 function formatPercent(value) {
   return `${Number(value).toFixed(1)}%`;
@@ -106,31 +92,16 @@ function setActiveNav(targetView, targetId = null) {
   navItems.forEach((item) => {
     const isActive =
       item.dataset.view === targetView &&
-      (targetId === null
-        ? item.dataset.target === "hero-card" || item.dataset.target === "leaderboard-view"
-        : item.dataset.target === targetId);
+      (targetId === null ? item.dataset.target === "hero-card" : item.dataset.target === targetId);
     item.classList.toggle("active", isActive);
   });
 }
 
-function showView(viewName) {
-  currentView = viewName;
-  appViews.forEach((view) => {
-    const isActive = view.id === `${viewName}-view`;
-    view.classList.toggle("active-view", isActive);
-    view.classList.toggle("hidden-view", !isActive);
-  });
-}
-
-function navigateTo(viewName, targetId = null) {
-  showView(viewName);
-  setActiveNav(viewName, targetId);
-
-  if (viewName === "home" && targetId) {
+function navigateTo(targetId = null) {
+  setActiveNav("home", targetId);
+  if (targetId) {
     const target = document.querySelector(`#${targetId}`);
     target?.scrollIntoView({ behavior: "smooth", block: "start" });
-  } else {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
 
@@ -234,139 +205,11 @@ function isSupabaseConfigured() {
 
 async function initializeSupabase() {
   if (!isSupabaseConfigured()) {
-    leaderboardStatusElement.textContent =
-      "Leaderboard is disabled until Supabase is configured.";
-    submitStatusElement.textContent =
-      "Add your Supabase project URL and anon key to enable score sharing.";
-    submitButton.disabled = true;
     return;
   }
 
   const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
   supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  leaderboardEnabled = true;
-  submitButton.disabled = state.status !== "finished";
-  await loadLeaderboard();
-}
-
-async function loadLeaderboard() {
-  if (!leaderboardEnabled) {
-    leaderboardElement.innerHTML =
-      '<tr><td colspan="5">Leaderboard unavailable.</td></tr>';
-    return;
-  }
-
-  leaderboardStatusElement.textContent = "Loading latest scores...";
-  const { data, error } = await supabase
-    .from("economy_sim_scores")
-    .select("player_name, score, gdp, created_at")
-    .order("score", { ascending: false })
-    .order("created_at", { ascending: false })
-    .limit(25);
-
-  if (error) {
-    leaderboardStatusElement.textContent = "Could not load leaderboard.";
-    leaderboardElement.innerHTML = `<tr><td colspan="5">${error.message}</td></tr>`;
-    return;
-  }
-
-  leaderboardEntries = data;
-  renderLeaderboard();
-}
-
-function formatSubmittedDate(value) {
-  const date = new Date(value);
-  return date.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric"
-  });
-}
-
-function renderLeaderboard() {
-  const query = leaderboardSearchInput.value.trim().toLowerCase();
-  const filteredEntries = leaderboardEntries.filter((entry) =>
-    entry.player_name.toLowerCase().includes(query)
-  );
-
-  leaderboardStatusElement.textContent =
-    leaderboardEntries.length === 0
-      ? "No scores yet."
-      : `Last update: ${new Date().toLocaleString()}`;
-
-  leaderboardElement.innerHTML =
-    filteredEntries.length === 0
-      ? '<tr><td colspan="5">No matching players yet.</td></tr>'
-      : filteredEntries
-          .map(
-            (entry, index) => `<tr>
-              <td class="rank-cell">#${index + 1}</td>
-              <td class="name-cell">
-                <span class="player-badge">${entry.player_name.slice(0, 1).toUpperCase()}</span>
-                <span>${entry.player_name}</span>
-              </td>
-              <td>${Number(entry.score).toFixed(1)}</td>
-              <td>${Number(entry.gdp).toFixed(1)}</td>
-              <td>${formatSubmittedDate(entry.created_at)}</td>
-            </tr>`
-          )
-          .join("");
-
-  leaderboardHighlightsElement.innerHTML =
-    leaderboardEntries.length === 0
-      ? "<p class=\"tile-copy\">No top players yet.</p>"
-      : leaderboardEntries
-          .slice(0, 3)
-          .map(
-            (entry, index) => `<div class="highlight-item">
-              <strong>#${index + 1} ${entry.player_name}</strong>
-              <span>${Number(entry.score).toFixed(1)} pts</span>
-            </div>`
-          )
-          .join("");
-}
-
-async function submitScore(event) {
-  event.preventDefault();
-
-  if (!leaderboardEnabled) {
-    submitStatusElement.textContent =
-      "Supabase is not configured yet, so score submission is disabled.";
-    return;
-  }
-
-  if (state.status !== "finished") {
-    submitStatusElement.textContent = "Finish a run before submitting a score.";
-    return;
-  }
-
-  const playerName = playerNameInput.value.trim();
-  if (!playerName) {
-    submitStatusElement.textContent = "Enter your name before submitting.";
-    return;
-  }
-
-  submitStatusElement.textContent = "Submitting score...";
-  submitButton.disabled = true;
-
-  const { error } = await supabase.from("economy_sim_scores").insert({
-    player_name: playerName,
-    score: getScore(state),
-    gdp: state.gdp,
-    debt: state.debt,
-    inflation: state.inflation,
-    unemployment: state.unemployment,
-    years_completed: state.history.length
-  });
-
-  if (error) {
-    submitStatusElement.textContent = `Could not submit score: ${error.message}`;
-    submitButton.disabled = false;
-    return;
-  }
-
-  submitStatusElement.textContent = "Score submitted.";
-  await loadLeaderboard();
-  submitButton.disabled = false;
 }
 
 function syncPolicyOutputs() {
@@ -636,7 +479,6 @@ function render() {
   challengeSummaryElement.textContent = dailyChallengeEnabled
     ? `${challenge.title}: ${challenge.summary}`
     : `Daily challenge refreshes each day with one fixed country, variant, and opening setup for everyone.`;
-
   const finished = state.status === "finished";
   advanceButton.disabled = finished;
   tradeButton.disabled = finished;
@@ -646,19 +488,6 @@ function render() {
   Object.values(tradeFields).forEach((field) => {
     field.disabled = finished;
   });
-
-  if (leaderboardEnabled) {
-    submitButton.disabled = !finished;
-    if (finished) {
-      submitStatusElement.textContent =
-        "Run finished. Enter your name to submit.";
-    } else {
-      submitStatusElement.textContent =
-        state.mode === "trader"
-          ? "Finish your trading run to submit your score."
-          : "Finish a run to submit your score.";
-    }
-  }
 }
 
 function resetState() {
@@ -696,7 +525,6 @@ traderForm.addEventListener("submit", (event) => {
   }
 });
 
-submitForm.addEventListener("submit", submitScore);
 restartButton.addEventListener("click", resetState);
 traderRestartButton.addEventListener("click", resetState);
 modeSelect.addEventListener("change", resetState);
@@ -707,15 +535,17 @@ dailyChallengeToggle.addEventListener("click", () => {
   playOpeningOverlay();
 });
 skipOpeningButton.addEventListener("click", dismissOpeningOverlay);
-leaderboardSearchInput.addEventListener("input", renderLeaderboard);
 navItems.forEach((item) => {
   item.addEventListener("click", (event) => {
+    if (item.dataset.view === "leaderboard-page") {
+      return;
+    }
     event.preventDefault();
-    navigateTo(item.dataset.view, item.dataset.target);
+    navigateTo(item.dataset.target);
   });
 });
 openLeaderboardButton.addEventListener("click", () => {
-  navigateTo("leaderboard", "leaderboard-view");
+  window.location.href = "./leaderboard/";
 });
 
 populateModeSelect();
@@ -723,7 +553,7 @@ populateCountrySelect();
 applyPolicyDefaults();
 resetTradeDefaults();
 syncPolicyOutputs();
-showView(currentView);
+setActiveNav("home", "hero-card");
 render();
 playOpeningOverlay();
 initializeSupabase();
