@@ -39,6 +39,40 @@ body {
   padding: 28px;
 }
 
+.setup-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 760px;
+}
+
+.setup-grid label {
+  display: grid;
+  gap: 8px;
+}
+
+.setup-grid span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.setup-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.mode-summary,
+.country-summary {
+  margin-bottom: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
 .eyebrow {
   margin: 0 0 10px;
   text-transform: uppercase;
@@ -116,6 +150,10 @@ label output {
   padding: 12px 14px;
   border-radius: 14px;
   background: var(--accent-soft);
+}
+
+.inline-status {
+  margin: 0;
 }
 
 .policy-form {
@@ -288,12 +326,27 @@ input[type="text"] {
   background: #fff;
 }
 
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font: inherit;
+  color: #1e1c18;
+  background: #fff;
+}
+
 @media (max-width: 800px) {
   .layout {
     grid-template-columns: 1fr;
   }
 
   .chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .setup-grid,
+  .setup-notes {
     grid-template-columns: 1fr;
   }
 }

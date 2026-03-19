@@ -1,6 +1,11 @@
 import {
   applyPolicy,
+  applyTrade,
+  COUNTRY_PRESETS,
   createInitialState,
+  DEFAULT_COUNTRY_ID,
+  DEFAULT_MODE,
+  GAME_MODES,
   getScore,
   getSummaryMessage
 } from "./economy.js";
@@ -13,32 +18,57 @@ const macroChartElement = document.querySelector("#macro-chart");
 const socialChartElement = document.querySelector("#social-chart");
 const leaderboardElement = document.querySelector("#leaderboard");
 const leaderboardStatusElement = document.querySelector("#leaderboard-status");
-const form = document.querySelector("#policy-form");
+const policyForm = document.querySelector("#policy-form");
+const traderForm = document.querySelector("#trader-form");
 const submitForm = document.querySelector("#submit-form");
 const submitButton = document.querySelector("#submit-button");
 const submitStatusElement = document.querySelector("#submit-status");
 const playerNameInput = document.querySelector("#player-name");
 const restartButton = document.querySelector("#restart-button");
+const traderRestartButton = document.querySelector("#restart-button-trader");
 const advanceButton = document.querySelector("#advance-button");
+const tradeButton = document.querySelector("#trade-button");
+const controlsEyebrow = document.querySelector("#controls-eyebrow");
+const controlsTitle = document.querySelector("#controls-title");
+const modeSelect = document.querySelector("#mode-select");
+const modeSummaryElement = document.querySelector("#mode-summary");
+const countrySelect = document.querySelector("#country-select");
+const countrySummaryElement = document.querySelector("#country-summary");
+const traderHintElement = document.querySelector("#trader-hint");
 
-const fields = {
+const policyFields = {
   taxRate: document.querySelector("#tax-rate"),
   spendingRate: document.querySelector("#spending-rate"),
   borrowingRate: document.querySelector("#borrowing-rate")
 };
 
-const outputs = {
+const policyOutputs = {
   taxRate: document.querySelector("#tax-output"),
   spendingRate: document.querySelector("#spending-output"),
   borrowingRate: document.querySelector("#borrowing-output")
 };
 
-let state = createInitialState();
+const tradeFields = {
+  bondPosition: document.querySelector("#bond-position"),
+  currencyPosition: document.querySelector("#currency-position")
+};
+
+let state = createInitialState(DEFAULT_COUNTRY_ID, DEFAULT_MODE);
 let supabase = null;
 let leaderboardEnabled = false;
 
 function formatPercent(value) {
   return `${Number(value).toFixed(1)}%`;
+}
+
+function formatSignedValue(value, digits = 1) {
+  const number = Number(value);
+  const sign = number > 0 ? "+" : "";
+  return `${sign}${number.toFixed(digits)}`;
+}
+
+function formatMoney(value) {
+  return `${value >= 0 ? "+" : ""}${value.toFixed(2)}`;
 }
 
 function isSupabaseConfigured() {
@@ -82,7 +112,7 @@ async function loadLeaderboard() {
     return;
   }
 
-  leaderboardStatusElement.textContent = "Top 10 GDP gains across all players.";
+  leaderboardStatusElement.textContent = "Top 10 scores across all runs.";
   leaderboardElement.innerHTML =
     data.length === 0
       ? "<li>No scores yet. Be the first to submit one.</li>"
@@ -91,7 +121,7 @@ async function loadLeaderboard() {
             (entry, index) =>
               `<li><strong>#${index + 1} ${entry.player_name}</strong> scored ${Number(
                 entry.score
-              ).toFixed(1)} GDP points and finished at GDP ${Number(entry.gdp).toFixed(1)}.</li>`
+              ).toFixed(1)} points and finished at GDP ${Number(entry.gdp).toFixed(1)}.</li>`
           )
           .join("");
 }
@@ -140,34 +170,87 @@ async function submitScore(event) {
   submitButton.disabled = false;
 }
 
-function syncOutputs() {
-  outputs.taxRate.textContent = `${fields.taxRate.value}%`;
-  outputs.spendingRate.textContent = `${fields.spendingRate.value}%`;
-  outputs.borrowingRate.textContent = `${fields.borrowingRate.value}%`;
+function syncPolicyOutputs() {
+  policyOutputs.taxRate.textContent = `${policyFields.taxRate.value}%`;
+  policyOutputs.spendingRate.textContent = `${policyFields.spendingRate.value}%`;
+  policyOutputs.borrowingRate.textContent = `${policyFields.borrowingRate.value}%`;
 }
 
 function getPolicyFromForm() {
   return {
-    taxRate: Number(fields.taxRate.value),
-    spendingRate: Number(fields.spendingRate.value),
-    borrowingRate: Number(fields.borrowingRate.value)
+    taxRate: Number(policyFields.taxRate.value),
+    spendingRate: Number(policyFields.spendingRate.value),
+    borrowingRate: Number(policyFields.borrowingRate.value)
   };
+}
+
+function getTradeFromForm() {
+  return {
+    bondPosition: tradeFields.bondPosition.value,
+    currencyPosition: tradeFields.currencyPosition.value
+  };
+}
+
+function applyPolicyDefaults() {
+  policyFields.taxRate.value = String(state.policyDefaults.taxRate);
+  policyFields.spendingRate.value = String(state.policyDefaults.spendingRate);
+  policyFields.borrowingRate.value = String(state.policyDefaults.borrowingRate);
+}
+
+function resetTradeDefaults() {
+  tradeFields.bondPosition.value = "long";
+  tradeFields.currencyPosition.value = "flat";
+}
+
+function populateModeSelect() {
+  modeSelect.innerHTML = Object.values(GAME_MODES)
+    .map((mode) => `<option value="${mode.id}">${mode.name}</option>`)
+    .join("");
+  modeSelect.value = state.mode ?? DEFAULT_MODE;
+}
+
+function populateCountrySelect() {
+  countrySelect.innerHTML = Object.values(COUNTRY_PRESETS)
+    .map((country) => `<option value="${country.id}">${country.name}</option>`)
+    .join("");
+  countrySelect.value = state.countryId ?? DEFAULT_COUNTRY_ID;
 }
 
 function renderStats() {
   const debtRatio = ((state.debt / state.gdp) * 100).toFixed(1);
-  const stats = [
+  const commonStats = [
+    ["Mode", GAME_MODES[state.mode].name],
+    ["Country", state.countryName],
     ["Year", `${state.year} / ${state.termLength}`],
     ["GDP", state.gdp.toFixed(1)],
-    ["Debt", state.debt.toFixed(1)],
     ["Debt / GDP", `${debtRatio}%`],
     ["Inflation", formatPercent(state.inflation)],
     ["Unemployment", formatPercent(state.unemployment)],
     ["Bond yield", formatPercent(state.bondYield)],
-    ["Approval", formatPercent(state.approval)],
-    ["Last growth", formatPercent(state.lastGrowth)],
-    ["GDP gained", state.status === "finished" ? getScore(state).toFixed(1) : `${getScore(state).toFixed(1)} so far`]
+    ["Last growth", formatPercent(state.lastGrowth)]
   ];
+
+  const modeSpecificStats =
+    state.mode === "trader"
+      ? [
+          ["Portfolio", state.portfolioValue.toFixed(2)],
+          ["Last P&L", formatMoney(state.lastPnl)],
+          ["Win streak", String(state.winStreak)],
+          ["Best trade", formatMoney(state.bestTrade)],
+          ["Score", `${formatMoney(getScore(state))} so far`]
+        ]
+      : [
+          ["Debt", state.debt.toFixed(1)],
+          ["Approval", formatPercent(state.approval)],
+          [
+            "GDP gained",
+            state.status === "finished"
+              ? getScore(state).toFixed(1)
+              : `${getScore(state).toFixed(1)} so far`
+          ]
+        ];
+
+  const stats = [...commonStats, ...modeSpecificStats];
 
   statsElement.innerHTML = stats
     .map(
@@ -179,14 +262,30 @@ function renderStats() {
 
 function renderHistory() {
   if (state.history.length === 0) {
-    historyElement.innerHTML = "<li>No policy decisions yet. Set your first budget.</li>";
+    historyElement.innerHTML =
+      state.mode === "trader"
+        ? "<li>No trades yet. Pick your first bond and FX stance.</li>"
+        : "<li>No policy decisions yet. Set your first budget.</li>";
+    return;
+  }
+
+  if (state.mode === "trader") {
+    historyElement.innerHTML = state.history
+      .map(
+        (entry) => `<li>
+          <strong>Year ${entry.year}</strong>: ${entry.headline}
+          <div>Bonds ${formatSignedValue(entry.bondMove)}%, currency ${formatSignedValue(entry.currencyMove)}%, portfolio ${formatMoney(entry.pnlAmount)}.</div>
+          <div>Trade call: ${entry.bondPosition} bonds, ${entry.currencyPosition} currency.</div>
+          <div>${entry.note}</div>
+        </li>`
+      )
+      .join("");
     return;
   }
 
   historyElement.innerHTML = state.history
     .map((entry) => {
-      const warningClass =
-        entry.nextDebt / entry.nextGdp > 1 ? "warning" : "";
+      const warningClass = entry.nextDebt / entry.nextGdp > 1 ? "warning" : "";
 
       return `<li>
         <strong>Year ${entry.year}</strong>: GDP growth ${entry.growth.toFixed(1)}%, inflation ${entry.inflation.toFixed(1)}%, debt ${entry.nextDebt.toFixed(1)}.
@@ -208,15 +307,13 @@ function buildLine(points, xScale, yScale) {
 }
 
 function renderChart(chartElement, series, points) {
-  const basePoints = points;
-
   const maxValue = Math.max(
-    ...basePoints.flatMap((point) => series.map((item) => point[item.key])),
+    ...points.flatMap((point) => series.map((item) => point[item.key])),
     1
   );
-  const xScale = basePoints.length > 1 ? 520 / (basePoints.length - 1) : 0;
+  const xScale = points.length > 1 ? 520 / (points.length - 1) : 0;
   const yScale = 160 / maxValue;
-  const axisLabels = basePoints
+  const axisLabels = points
     .map((_, index) => {
       const x = 56 + index * xScale;
       return `<text x="${x}" y="220" text-anchor="middle" font-size="11" fill="#6d6458">Y${index}</text>`;
@@ -232,7 +329,7 @@ function renderChart(chartElement, series, points) {
     .map(
       (item) =>
         `<path d="${buildLine(
-          basePoints.map((point) => point[item.key]),
+          points.map((point) => point[item.key]),
           xScale,
           yScale
         )}" fill="none" stroke="${item.color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />`
@@ -240,7 +337,7 @@ function renderChart(chartElement, series, points) {
     .join("");
   const markers = series
     .map((item) =>
-      basePoints
+      points
         .map((point, index) => {
           const x = 56 + index * xScale;
           const y = 196 - point[item.key] * yScale;
@@ -249,8 +346,8 @@ function renderChart(chartElement, series, points) {
         .join("")
     )
     .join("");
-
-  const highLabel = maxValue >= 20 ? Math.round(maxValue).toString() : maxValue.toFixed(1);
+  const highLabel =
+    maxValue >= 20 ? Math.round(maxValue).toString() : maxValue.toFixed(1);
 
   chartElement.innerHTML = `
     <rect x="0" y="0" width="640" height="240" rx="16" fill="#fffaf1"></rect>
@@ -265,13 +362,26 @@ function renderChart(chartElement, series, points) {
   `;
 }
 
+function syncModeUI() {
+  const traderMode = state.mode === "trader";
+  policyForm.hidden = traderMode;
+  traderForm.hidden = !traderMode;
+  controlsEyebrow.textContent = traderMode ? "Trading" : "Decisions";
+  controlsTitle.textContent = traderMode
+    ? "Pick your trades for the next year"
+    : "Set policy for the next year";
+  traderHintElement.textContent = traderMode
+    ? "Keep it simple: pick a bond view, pick a currency view, and let the world move."
+    : traderHintElement.textContent;
+}
+
 function render() {
   const chartPoints = [
     {
-      gdp: 100,
-      debt: 62,
-      inflation: 2.1,
-      unemployment: 5.4
+      gdp: state.initialGdp,
+      debt: state.initialDebt,
+      inflation: state.initialInflation,
+      unemployment: state.initialUnemployment
     },
     ...state.history.map((entry) => ({
       gdp: entry.nextGdp,
@@ -299,38 +409,71 @@ function render() {
     chartPoints
   );
   renderHistory();
+  syncModeUI();
   statusElement.textContent = getSummaryMessage(state);
-  const disabled = state.status === "finished";
-  advanceButton.disabled = disabled;
-  Object.values(fields).forEach((field) => {
-    field.disabled = disabled;
+  modeSelect.value = state.mode;
+  countrySelect.value = state.countryId;
+  modeSummaryElement.textContent = GAME_MODES[state.mode].summary;
+  countrySummaryElement.textContent = state.countrySummary;
+
+  const finished = state.status === "finished";
+  advanceButton.disabled = finished;
+  tradeButton.disabled = finished;
+  Object.values(policyFields).forEach((field) => {
+    field.disabled = finished;
   });
+  Object.values(tradeFields).forEach((field) => {
+    field.disabled = finished;
+  });
+
   if (leaderboardEnabled) {
-    submitButton.disabled = state.status !== "finished";
-    if (state.status === "finished") {
-      submitStatusElement.textContent = "Run finished. Enter your name to submit.";
+    submitButton.disabled = !finished;
+    if (finished) {
+      submitStatusElement.textContent =
+        "Run finished. Enter your name to submit.";
+    } else {
+      submitStatusElement.textContent =
+        state.mode === "trader"
+          ? "Finish your trading run to submit your score."
+          : "Finish a run to submit your score.";
     }
   }
 }
 
-Object.values(fields).forEach((field) => {
-  field.addEventListener("input", syncOutputs);
+function resetState() {
+  state = createInitialState(countrySelect.value, modeSelect.value);
+  applyPolicyDefaults();
+  resetTradeDefaults();
+  syncPolicyOutputs();
+  render();
+}
+
+Object.values(policyFields).forEach((field) => {
+  field.addEventListener("input", syncPolicyOutputs);
 });
 
-form.addEventListener("submit", (event) => {
+policyForm.addEventListener("submit", (event) => {
   event.preventDefault();
   state = applyPolicy(state, getPolicyFromForm());
   render();
 });
 
-submitForm.addEventListener("submit", submitScore);
-
-restartButton.addEventListener("click", () => {
-  state = createInitialState();
-  syncOutputs();
+traderForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  state = applyTrade(state, getTradeFromForm());
   render();
 });
 
-syncOutputs();
+submitForm.addEventListener("submit", submitScore);
+restartButton.addEventListener("click", resetState);
+traderRestartButton.addEventListener("click", resetState);
+modeSelect.addEventListener("change", resetState);
+countrySelect.addEventListener("change", resetState);
+
+populateModeSelect();
+populateCountrySelect();
+applyPolicyDefaults();
+resetTradeDefaults();
+syncPolicyOutputs();
 render();
 initializeSupabase();

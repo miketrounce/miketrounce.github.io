@@ -12,10 +12,25 @@
         <p class="eyebrow">Policy Game</p>
         <h1>Economy Sim</h1>
         <p class="intro">
-          Set tax, spending, and borrowing each year. Grow GDP over an eight
-          year term without letting debt spiral out of control, losing market
-          confidence, or being voted out.
+          Take over a country-inspired economy, then set tax, spending, and
+          borrowing each year. Grow GDP over an eight year term without letting
+          debt spiral out of control, losing market confidence, or being voted
+          out.
         </p>
+        <div class="setup-grid">
+          <label for="mode-select">
+            <span>Choose a mode</span>
+            <select id="mode-select" name="mode"></select>
+          </label>
+          <label for="country-select">
+            <span>Choose a country</span>
+            <select id="country-select" name="country"></select>
+          </label>
+        </div>
+        <div class="setup-notes">
+          <p class="mode-summary" id="mode-summary"></p>
+          <p class="country-summary" id="country-summary"></p>
+        </div>
       </section>
 
       <section class="layout">
@@ -30,8 +45,8 @@
 
         <section class="panel controls-panel">
           <div class="section-title">
-            <p class="eyebrow">Decisions</p>
-            <h2>Set policy for the next year</h2>
+            <p class="eyebrow" id="controls-eyebrow">Decisions</p>
+            <h2 id="controls-title">Set policy for the next year</h2>
           </div>
           <form id="policy-form" class="policy-form">
             <label>
@@ -52,6 +67,31 @@
             <div class="actions">
               <button type="submit" id="advance-button">Apply year</button>
               <button type="button" id="restart-button" class="secondary">Restart</button>
+            </div>
+          </form>
+          <form id="trader-form" class="policy-form" hidden>
+            <label>
+              <span>Bond position</span>
+              <select id="bond-position" name="bondPosition">
+                <option value="long">Long bonds</option>
+                <option value="short">Short bonds</option>
+                <option value="flat">Stay flat</option>
+              </select>
+            </label>
+            <label>
+              <span>Currency position</span>
+              <select id="currency-position" name="currencyPosition">
+                <option value="long">Long currency</option>
+                <option value="short">Short currency</option>
+                <option value="flat">Stay flat</option>
+              </select>
+            </label>
+            <p class="status inline-status" id="trader-hint">
+              Pick a stance in bonds and FX, then see how the year plays out.
+            </p>
+            <div class="actions">
+              <button type="submit" id="trade-button">Trade year</button>
+              <button type="button" id="restart-button-trader" class="secondary">Restart</button>
             </div>
           </form>
         </section>

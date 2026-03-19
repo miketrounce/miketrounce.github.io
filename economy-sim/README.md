@@ -4,7 +4,9 @@ Live page:
 
 [https://miketrounce.github.io/Personal-Projects/economy-sim/](https://miketrounce.github.io/Personal-Projects/economy-sim/)
 
-A small browser game where you set tax, spending, and borrowing policy each year to maximize GDP growth over a fixed term.
+A small browser game with two play styles:
+- `President Mode`: set tax, spending, and borrowing policy each year to maximize GDP growth over a fixed term
+- `Trader Mode`: react to the same economy by trading bonds and currencies for profit
 
 ## Run locally
 
@@ -18,11 +20,17 @@ Then open [http://localhost:4173/economy-sim/](http://localhost:4173/economy-sim
 
 ## Goal
 
-Grow GDP as much as possible over eight years without letting debt, unemployment, inflation, or bond-market pressure get out of hand.
+Pick a country-inspired starting economy, then play through an eight year term.
+
+- In `President Mode`, grow GDP as much as possible without letting debt, unemployment, inflation, or bond-market pressure get out of hand.
+- In `Trader Mode`, let the world evolve on its own and try to make as much money as possible from simple bond and FX calls.
 
 ## Systems
 
-- Annual policy choices for tax, spending, and borrowing
+- Country presets for Brazil, Indonesia, Serbia, and China
+- Two player modes with different objectives
+- Annual policy choices for tax, spending, and borrowing in `President Mode`
+- Simple bond and currency positions in `Trader Mode`
 - Bond yields that worsen as debt and borrowing rise
 - Unemployment as a second labor-market health signal
 - Deterministic yearly shocks so runs stay testable
