@@ -108,48 +108,46 @@
         grid-template-rows: auto auto 1fr auto;
       }
 
-      .profile-card-home {
-        gap: 14px;
+      .goal-card {
+        background: linear-gradient(180deg, rgba(190, 148, 74, 0.14) 0%, rgba(47, 44, 40, 0.96) 100%);
       }
 
-      .profile-avatar {
-        width: 124px;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        justify-self: start;
+      .goal-card a {
+        background: linear-gradient(180deg, #d6aa58 0%, #b88733 100%);
+        color: #24180a;
+      }
+
+      .goal-logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
         position: relative;
-        overflow: hidden;
-        border: 3px solid rgba(244, 242, 236, 0.9);
-        background:
-          radial-gradient(circle at 50% 34%, #f2cfbc 0 18%, transparent 18.5%),
-          radial-gradient(circle at 50% 78%, #1f2430 0 34%, transparent 34.5%),
-          radial-gradient(circle at 50% 38%, #f0d2c2 0 28%, transparent 28.5%),
-          radial-gradient(circle at 35% 34%, #1c1a1b 0 6%, transparent 6.5%),
-          radial-gradient(circle at 65% 34%, #1c1a1b 0 6%, transparent 6.5%),
-          radial-gradient(circle at 50% 49%, #d88e8b 0 4%, transparent 4.5%),
-          radial-gradient(circle at 50% 56%, #ffffff 0 10%, transparent 10.5%),
-          radial-gradient(circle at 50% 16%, #3b2f27 0 30%, transparent 30.5%),
-          linear-gradient(180deg, #5f6168 0%, #43444b 100%);
-        box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.03);
+        margin-bottom: 14px;
+        padding: 0.3em 0.88em 0.52em;
+        min-height: 2.56em;
+        border-radius: 18px;
+        border: 1px solid rgba(190, 148, 74, 0.28);
+        background: linear-gradient(180deg, rgba(190, 148, 74, 0.16) 0%, rgba(79, 59, 31, 0.2) 100%);
+        color: #f3ead6;
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 900;
+        font-size: 1.85rem;
+        line-height: 0.9;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.05),
+          0 10px 20px rgba(0, 0, 0, 0.12);
       }
 
-      .profile-avatar::before {
+      .goal-logo::after {
         content: "";
         position: absolute;
-        inset: 14% 18% auto 18%;
-        height: 20%;
-        border-radius: 50% 50% 40% 40%;
-        background: #2c241f;
-        transform: scaleX(1.08);
-      }
-
-      .profile-avatar::after {
-        content: "";
-        position: absolute;
-        inset: auto 28% 16% 28%;
-        height: 22%;
-        border-radius: 32px 32px 18px 18px;
-        background: linear-gradient(180deg, #243245 0%, #121923 100%);
+        left: 0.9em;
+        right: 0.9em;
+        bottom: 0.36em;
+        height: 0.16em;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(214, 170, 88, 0.95), rgba(239, 216, 157, 0.58));
+        box-shadow: 0 0 12px rgba(214, 170, 88, 0.14);
       }
 
       .route-card.proton-card {
@@ -287,7 +285,7 @@
         margin-bottom: 14px;
         gap: 0.02em;
         padding: 0.34em 0.92em 0.5em 1em;
-        min-height: 2.35em;
+        min-height: 2.56em;
         border-radius: 18px;
         border: 1px solid rgba(129, 182, 76, 0.24);
         background: linear-gradient(180deg, rgba(129, 182, 76, 0.14) 0%, rgba(53, 64, 44, 0.22) 100%);
@@ -303,7 +301,7 @@
         position: absolute;
         left: 0.9em;
         right: 0.9em;
-        bottom: 0.34em;
+        bottom: 0.36em;
         height: 0.16em;
         border-radius: 999px;
         background: linear-gradient(90deg, rgba(129, 182, 76, 0.92), rgba(226, 187, 98, 0.64));
@@ -326,31 +324,6 @@
         font-weight: 900;
         letter-spacing: -0.08em;
         text-transform: lowercase;
-      }
-
-      .tricksy-logo .wink {
-        position: relative;
-        width: 0.56em;
-        height: 0.56em;
-        margin: 0 0.02em 0 0.01em;
-        border-radius: 50%;
-        background:
-          radial-gradient(circle at 40% 38%, #eef5dd 0 0.1em, transparent 0.11em),
-          radial-gradient(circle at 52% 52%, #32401c 0 0.2em, #d6e8ac 0.21em 100%);
-        box-shadow: 0 0 0 0.08em rgba(120, 163, 67, 0.22);
-        transform: translateY(0.02em);
-      }
-
-      .tricksy-logo .wink::after {
-        content: "";
-        position: absolute;
-        left: 0.06em;
-        right: 0.02em;
-        bottom: 0.1em;
-        height: 0.14em;
-        border-radius: 999px;
-        background: linear-gradient(90deg, rgba(226, 187, 98, 0.95), rgba(129, 182, 76, 0.85));
-        transform: rotate(-8deg);
       }
 
       .tricksy-logo .sy {
@@ -398,14 +371,7 @@
       <section class="hero">
         <div class="hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Introduction</p>
             <h1>Michael Trounce</h1>
-            <p class="intro">
-              Builder of EM and Global Macro products. I’m actively looking for
-              my next role, I build serious self-updating desktop dashboards as
-              <strong>Knowledge Machines</strong>, and I make playful games
-              under the <span class="tricksy-word">Tricksy</span> label.
-            </p>
           </div>
           <div class="hero-meta">
             <article class="mini-card">
@@ -414,20 +380,15 @@
               <p>Phone / WhatsApp: +44 7887 546080</p>
               <p>LinkedIn: linkedin.com/in/michael-trounce</p>
             </article>
-            <article class="mini-card">
-              <strong>Now</strong>
-              <p>Open to work, product-focused, and building across both finance and playful side projects.</p>
-            </article>
           </div>
         </div>
       </section>
 
       <section class="section-card" aria-label="Homepage sections">
         <div class="routes-grid">
-          <article class="route-card">
-            <p class="route-kicker">1. Professional</p>
-            <div class="profile-avatar" aria-hidden="true"></div>
-            <h3>Hiring path</h3>
+          <article class="route-card goal-card">
+            <div class="goal-logo">My Goal</div>
+            <h3>Macro pod role</h3>
             <p>
               I’m looking to join a global macro or emerging markets macro pod,
               especially one where flows-and-positions analysis carries real
@@ -438,17 +399,18 @@
 
           <article class="route-card proton-card">
             <div class="proton-logo">Knowledge Machines</div>
-            <h3>Dashboard / Database</h3>
+            <h3>Dashboards / Databases</h3>
             <p>
-              Self-updating situation monitors you can keep open on your
-              desktop while you work.
+              Bespoke, self-updating situation monitors with in-built
+              databases and API's, including MENA, a conflict activity
+              tracker.
             </p>
             <a href="./Knowledge-Machines/" class="proton-link">Open Knowledge Machines</a>
           </article>
 
           <article class="route-card">
             <div class="tricksy-logo" aria-label="Tricksy">
-              <span class="tri">Tri</span><span class="ck">ck</span><span class="wink" aria-hidden="true"></span><span class="sy">sy</span>
+              <span class="tri">Tri</span><span class="ck">ck</span><span class="sy">sy</span>
             </div>
             <h3>Games / Experiments</h3>
             <p>
