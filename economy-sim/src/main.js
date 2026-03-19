@@ -10,8 +10,11 @@ import {
   getRunAnalysis,
   getScore,
   getSummaryMessage
-} from "./economy.js";
-import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./supabase-config.js";
+} from "./economy.js?v=20260319-2";
+import {
+  SUPABASE_ANON_KEY,
+  SUPABASE_URL
+} from "./supabase-config.js?v=20260319-2";
 
 const statsElement = document.querySelector("#stats");
 const statusElement = document.querySelector("#status");
