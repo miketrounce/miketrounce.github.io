@@ -51,45 +51,13 @@
         padding: 22px 28px;
       }
 
-      .hero-compact {
-        display: grid;
-        grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.8fr);
-        gap: 24px;
-        align-items: end;
-      }
-
       .hero-copy {
         max-width: 880px;
       }
 
-      .hero-meta {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .mini-card {
-        padding: 14px 16px;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
-      }
-
-      .mini-card strong {
-        display: block;
-        margin-bottom: 6px;
-        color: #f4f2ec;
-        font-size: 1rem;
-      }
-
-      .mini-card p {
-        margin: 0;
-        font-size: 0.95rem;
-      }
-
       .main-grid {
         display: grid;
-        grid-template-columns: 340px minmax(0, 1fr) 320px;
+        grid-template-columns: minmax(0, 1fr) 320px;
         gap: 16px;
         min-height: 0;
       }
@@ -172,18 +140,10 @@
         color: #a9d470;
       }
 
-      .about-points,
       .project-stack,
       .contact-list {
         display: grid;
         gap: 12px;
-      }
-
-      .info-tile {
-        padding: 14px 16px;
-        border-radius: 18px;
-        border: 1px solid var(--border);
-        background: linear-gradient(180deg, #383530 0%, #302d29 100%);
       }
 
       .project-card {
@@ -231,13 +191,8 @@
           min-height: auto;
         }
 
-        .hero-compact,
         .main-grid {
           grid-template-columns: 1fr;
-        }
-
-        .hero-meta {
-          grid-template-columns: 1fr 1fr;
         }
       }
 
@@ -254,10 +209,6 @@
           padding: 18px;
         }
 
-        .hero-meta {
-          grid-template-columns: 1fr;
-        }
-
         h1 {
           font-size: clamp(2.3rem, 10vw, 3.4rem);
         }
@@ -267,55 +218,22 @@
   <body>
     <main class="page">
       <section class="hero">
-        <div class="hero-compact">
-          <div class="hero-copy">
-            <p class="eyebrow">Home</p>
-            <h1>Michael Trounce</h1>
-            <p class="intro">
-              Builder of EM and Global Macro products, and maker of playful
-              side projects under the
-              <span class="tricksy-word">Tricksy</span> label.
-            </p>
-            <div class="hero-actions">
-              <a href="./Professional/">Professional</a>
-              <a href="./Tricksy/" class="secondary">Enter Tricksy</a>
-            </div>
-          </div>
-          <div class="hero-meta">
-            <article class="mini-card">
-              <strong>Professional</strong>
-              <p>Career-facing profile, contact details, and work style.</p>
-            </article>
-            <article class="mini-card">
-              <strong>Tricksy</strong>
-              <p>Small games, experiments, surprises, and personal builds.</p>
-            </article>
+        <div class="hero-copy">
+          <p class="eyebrow">Home</p>
+          <h1>Michael Trounce</h1>
+          <p class="intro">
+            Builder of EM and Global Macro products, and maker of playful
+            side projects under the
+            <span class="tricksy-word">Tricksy</span> label.
+          </p>
+          <div class="hero-actions">
+            <a href="./Professional/">Professional</a>
+            <a href="./Tricksy/" class="secondary">Enter Tricksy</a>
           </div>
         </div>
       </section>
 
       <section class="main-grid" aria-label="Site map">
-        <div class="column">
-          <article class="section-card">
-            <p class="eyebrow">Overview</p>
-            <h2>Two worlds.</h2>
-            <div class="about-points">
-              <div class="info-tile">
-                <h3>Professional</h3>
-                <p>Macro products, workflow thinking, and practical product building.</p>
-              </div>
-              <div class="info-tile">
-                <h3>Tricksy</h3>
-                <p>Playful releases collected under one personal games label.</p>
-              </div>
-              <div class="info-tile">
-                <h3>At a glance</h3>
-                <p>No clutter, just a fast path into the serious side or the playful side.</p>
-              </div>
-            </div>
-          </article>
-        </div>
-
         <div class="column">
           <article class="section-card">
             <p class="eyebrow">Routes</p>
@@ -375,14 +293,6 @@
                 </a>
               </li>
             </ul>
-          </article>
-
-          <article class="section-card">
-            <p class="eyebrow">Docs</p>
-            <h2>Repo</h2>
-            <div class="project-links">
-              <a href="./README.md" class="ghost-link">README</a>
-            </div>
           </article>
         </div>
       </section>
