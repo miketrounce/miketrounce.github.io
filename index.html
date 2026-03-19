@@ -14,6 +14,9 @@
         --accent: #81b64c;
         --accent-dark: #6aa23d;
         --muted: #b8b0a4;
+        --text: #f4f2ec;
+        --proton: #6fb5ff;
+        --proton-dark: #3f80d3;
       }
 
       html,
@@ -22,7 +25,6 @@
       }
 
       body {
-        overflow: hidden;
         background:
           radial-gradient(circle at top left, rgba(129, 182, 76, 0.1), transparent 24%),
           linear-gradient(180deg, #322f2c 0%, #2b2926 100%);
@@ -31,33 +33,64 @@
       .page {
         width: min(100%, 1480px);
         min-height: 100vh;
-        padding: 20px 24px;
+        padding: 22px 24px;
         display: grid;
         grid-template-rows: auto 1fr;
         gap: 16px;
       }
 
       .hero,
-      .card,
-      .project-card,
-      .contact-card {
+      .section-card,
+      .contact-card,
+      .route-card {
+        border: 1px solid var(--border);
         background: var(--panel);
-        border-color: var(--border);
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        border-radius: 24px;
       }
 
       .hero {
-        border-radius: 24px;
         padding: 22px 28px;
       }
 
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) 340px;
+        gap: 18px;
+        align-items: start;
+      }
+
       .hero-copy {
-        max-width: 880px;
+        max-width: 900px;
+      }
+
+      .hero-meta {
+        display: grid;
+        gap: 12px;
+      }
+
+      .mini-card {
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+      }
+
+      .mini-card strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--text);
+        font-size: 1rem;
+      }
+
+      .mini-card p {
+        margin: 0;
+        font-size: 0.95rem;
       }
 
       .main-grid {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 320px;
+        grid-template-columns: 320px minmax(0, 1fr);
         gap: 16px;
         min-height: 0;
       }
@@ -68,35 +101,58 @@
         gap: 16px;
       }
 
-      .section-card {
-        border: 1px solid var(--border);
-        border-radius: 22px;
-        background: var(--panel);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      .section-card,
+      .contact-card {
         padding: 18px 20px;
       }
 
-      .section-card h2,
-      .section-card h3,
-      h1 {
-        color: #f4f2ec;
+      .routes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .route-card {
+        padding: 18px 20px;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+        display: grid;
+        gap: 12px;
+        align-content: start;
+      }
+
+      .route-card.proton-card {
+        background: linear-gradient(180deg, rgba(63, 128, 211, 0.18) 0%, rgba(47, 44, 40, 0.96) 100%);
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      ul {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--text);
       }
 
       h1 {
         margin-bottom: 12px;
-        font-size: clamp(2.9rem, 5vw, 4.8rem);
+        font-size: clamp(3rem, 5vw, 4.9rem);
         line-height: 0.92;
       }
 
       h2 {
         margin: 0 0 8px;
-        max-width: none;
         font-size: 1.8rem;
+        max-width: none;
       }
 
       h3 {
-        margin: 0 0 8px;
-        font-size: 1.15rem;
+        margin: 0 0 6px;
+        font-size: 1.25rem;
       }
 
       p,
@@ -105,72 +161,58 @@
       }
 
       .eyebrow,
-      .project-type {
+      .route-kicker {
         color: #c9c1b4;
       }
 
       .intro {
         max-width: 60rem;
         margin-bottom: 0;
-        font-size: 1.06rem;
+        font-size: 1.08rem;
       }
 
       .hero-actions {
         margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
       }
 
       a {
-        background: linear-gradient(180deg, #81b64c 0%, #6aa23d 100%);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 11px 16px;
+        text-decoration: none;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
         color: #1f231a;
       }
 
-      a.secondary,
-      .ghost-link {
+      a.secondary {
         background: transparent;
-        color: #f4f2ec;
+        color: var(--text);
         border: 1px solid var(--border);
       }
 
-      .ghost-link {
-        display: inline-flex;
+      .proton-link {
+        background: linear-gradient(180deg, var(--proton) 0%, var(--proton-dark) 100%);
+        color: #101b2b;
       }
 
-      .contact-card a {
-        background: transparent;
-        color: #a9d470;
-      }
-
-      .project-stack,
+      .points,
       .contact-list {
         display: grid;
         gap: 12px;
       }
 
-      .project-card {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 18px 20px;
-        border-radius: 20px;
-        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
-      }
-
-      .project-card p {
-        margin-bottom: 0;
-      }
-
-      .project-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .project-links a {
-        padding: 10px 16px;
-      }
-
-      .contact-card {
-        padding: 18px 20px;
+      .info-tile {
+        padding: 14px 16px;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, #383530 0%, #302d29 100%);
       }
 
       .contact-card ul {
@@ -182,35 +224,45 @@
         margin-top: 6px;
       }
 
-      @media (max-width: 1180px) {
+      .contact-card a {
+        display: inline;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #a9d470;
+        font-weight: 700;
+      }
+
+      .proton-card .route-kicker {
+        color: #b8d8ff;
+      }
+
+      @media (max-width: 1280px) {
         body {
           overflow: auto;
         }
 
-        .page {
-          min-height: auto;
-        }
-
-        .main-grid {
+        .hero-grid,
+        .main-grid,
+        .routes-grid {
           grid-template-columns: 1fr;
         }
       }
 
       @media (max-width: 720px) {
-        body {
-          overflow: auto;
-        }
-
         .page {
           padding: 14px;
         }
 
-        .hero {
+        .hero,
+        .section-card,
+        .contact-card,
+        .route-card {
           padding: 18px;
         }
 
         h1 {
-          font-size: clamp(2.3rem, 10vw, 3.4rem);
+          font-size: clamp(2.3rem, 10vw, 3.5rem);
         }
       }
     </style>
@@ -218,81 +270,96 @@
   <body>
     <main class="page">
       <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">Home</p>
-          <h1>Michael Trounce</h1>
-          <p class="intro">
-            Builder of EM and Global Macro products, and maker of playful
-            side projects under the
-            <span class="tricksy-word">Tricksy</span> label.
-          </p>
-          <div class="hero-actions">
-            <a href="./Professional/">Professional</a>
-            <a href="./Tricksy/" class="secondary">Enter Tricksy</a>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Introduction</p>
+            <h1>Michael Trounce</h1>
+            <p class="intro">
+              Builder of EM and Global Macro products. I’m actively looking for
+              my next role, I build serious digital products for investment
+              professionals under <strong>Proton</strong>, and I make playful
+              games under the <span class="tricksy-word">Tricksy</span> label.
+            </p>
+            <div class="hero-actions">
+              <a href="./Professional/">Hiring path</a>
+              <a href="./Proton/" class="proton-link">Explore Proton</a>
+              <a href="./Tricksy/" class="secondary">Enter Tricksy</a>
+            </div>
+          </div>
+          <div class="hero-meta">
+            <article class="mini-card">
+              <strong>Contact</strong>
+              <p>Email: trounceflow@gmail.com</p>
+              <p>LinkedIn: linkedin.com/in/michael-trounce</p>
+            </article>
+            <article class="mini-card">
+              <strong>Now</strong>
+              <p>Open to work, product-focused, and building across both finance and playful side projects.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="main-grid" aria-label="Site map">
+      <section class="main-grid" aria-label="Homepage sections">
         <div class="column">
-          <article class="section-card">
-            <p class="eyebrow">Routes</p>
-            <h2>Where to go</h2>
-            <div class="project-stack">
-              <article class="project-card">
-                <div>
-                  <p class="project-type">Professional</p>
-                  <h3>/Professional/</h3>
-                  <p>
-                    Background, contact details, and the professional framing
-                    around how I work and what I build.
-                  </p>
-                </div>
-                <div class="project-links">
-                  <a href="./Professional/">Open Professional</a>
-                </div>
-              </article>
-
-              <article class="project-card">
-                <div>
-                  <p class="project-type">
-                    <span class="tricksy-word tricksy-badge">Tricksy</span>
-                    arcade
-                  </p>
-                  <h3>/Tricksy/</h3>
-                  <p>
-                    The umbrella page for Lula, Snake, and future playful
-                    experiments.
-                  </p>
-                </div>
-                <div class="project-links">
-                  <a href="./Tricksy/">Open Tricksy</a>
-                  <a href="./Tricksy/Lula/" class="secondary">Play Lula</a>
-                  <a href="./Tricksy/Snake/" class="secondary">Play Snake</a>
-                  <a href="./Tricksy/Kaboom/" class="secondary">Play Kaboom</a>
-                </div>
-              </article>
+          <article class="contact-card">
+            <p class="eyebrow">Introduction</p>
+            <h2>At a glance.</h2>
+            <div class="points">
+              <div class="info-tile">
+                <h3>Bio</h3>
+                <p>London-based builder of macro and emerging-markets-focused digital products.</p>
+              </div>
+              <div class="info-tile">
+                <h3>Resume angle</h3>
+                <p>If you are hiring, the `Professional` path goes much deeper on how I work and what I can bring.</p>
+              </div>
+              <div class="info-tile">
+                <h3>Contact</h3>
+                <p>Email and LinkedIn are the fastest ways to reach me directly.</p>
+              </div>
             </div>
           </article>
         </div>
 
         <div class="column">
-          <article class="contact-card section-card">
-            <p class="eyebrow">Connect</p>
-            <h2>Direct links</h2>
-            <ul class="contact-list">
-              <li>Email: trounceflow@gmail.com</li>
-              <li>
-                GitHub:
-                <a href="https://github.com/miketrounce">github.com/miketrounce</a>
-              </li>
-              <li>
-                LinkedIn:
-                <a href="https://www.linkedin.com/in/michael-trounce/">
-                  linkedin.com/in/michael-trounce
-                </a>
-              </li>
-            </ul>
+          <article class="section-card">
+            <p class="eyebrow">Site Paths</p>
+            <h2>Four parts.</h2>
+            <div class="routes-grid">
+              <article class="route-card">
+                <p class="route-kicker">1. Introduction</p>
+                <h3>Bio and contact</h3>
+                <p>The root page is the quick overview: who I am, what I build, and how to reach me.</p>
+                <a href="mailto:trounceflow@gmail.com">Email Michael</a>
+              </article>
+
+              <article class="route-card">
+                <p class="route-kicker">2. Professional</p>
+                <h3>Hiring path</h3>
+                <p>I’m looking for a job, so this route is for employers who want a fuller professional picture.</p>
+                <a href="./Professional/">Open Professional</a>
+              </article>
+
+              <article class="route-card proton-card">
+                <p class="route-kicker">3. Proton</p>
+                <h3>Products brand</h3>
+                <p>Serious digital products for investment professionals. This is the commercial, no-nonsense side.</p>
+                <a href="./Proton/" class="proton-link">Open Proton</a>
+              </article>
+
+              <article class="route-card">
+                <p class="route-kicker">4. Tricksy</p>
+                <h3>Fun and games</h3>
+                <p>Three playful games live here right now: Lula, Snake, and Kaboom.</p>
+                <div class="hero-actions">
+                  <a href="./Tricksy/">Open Tricksy</a>
+                  <a href="./Tricksy/Lula/" class="secondary">Lula</a>
+                  <a href="./Tricksy/Snake/" class="secondary">Snake</a>
+                  <a href="./Tricksy/Kaboom/" class="secondary">Kaboom</a>
+                </div>
+              </article>
+            </div>
           </article>
         </div>
       </section>

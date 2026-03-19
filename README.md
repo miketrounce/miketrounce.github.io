@@ -20,6 +20,14 @@ Tricksy side.
 
 Professional-facing page for background, work style, and contact details.
 
+### Proton
+
+- Folder: [`Proton/`](/Users/michaeltrounce/Documents/New project/Proton)
+- Live site: [https://miketrounce.github.io/Proton/](https://miketrounce.github.io/Proton/)
+
+Brand page for the serious digital products I make and sell to investment
+professionals.
+
 ### Tricksy
 
 - Folder: [`Tricksy/`](/Users/michaeltrounce/Documents/New project/Tricksy)
@@ -73,6 +81,7 @@ npm test
 ```text
 miketrounce.github.io/
   Professional/
+  Proton/
   Tricksy/
     Kaboom/
     Lula/
