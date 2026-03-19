@@ -10,12 +10,22 @@ import {
   getRunAnalysis,
   getScore,
   getSummaryMessage
-} from "./economy.js?v=20260319-2";
+} from "./economy.js?v=20260319-3";
 import {
   SUPABASE_ANON_KEY,
   SUPABASE_URL
-} from "./supabase-config.js?v=20260319-2";
+} from "./supabase-config.js?v=20260319-3";
 
+const openingOverlay = document.querySelector("#opening-overlay");
+const openingCopyElement = document.querySelector("#opening-copy");
+const skipOpeningButton = document.querySelector("#skip-opening-button");
+const turnOverlay = document.querySelector("#turn-overlay");
+const turnKickerElement = document.querySelector("#turn-kicker");
+const turnTitleElement = document.querySelector("#turn-title");
+const turnCopyElement = document.querySelector("#turn-copy");
+const turnChipAElement = document.querySelector("#turn-chip-a");
+const turnChipBElement = document.querySelector("#turn-chip-b");
+const turnChipCElement = document.querySelector("#turn-chip-c");
 const statsElement = document.querySelector("#stats");
 const statusElement = document.querySelector("#status");
 const historyElement = document.querySelector("#history");
@@ -66,6 +76,8 @@ let supabase = null;
 let leaderboardEnabled = false;
 let dailyChallengeEnabled = false;
 const todayKey = new Date().toISOString().slice(0, 10);
+let openingTimer = null;
+let transitionTimer = null;
 
 function formatPercent(value) {
   return `${Number(value).toFixed(1)}%`;
@@ -79,6 +91,100 @@ function formatSignedValue(value, digits = 1) {
 
 function formatMoney(value) {
   return `${value >= 0 ? "+" : ""}${value.toFixed(2)}`;
+}
+
+function showOverlay(element) {
+  element.classList.add("visible");
+  element.setAttribute("aria-hidden", "false");
+}
+
+function hideOverlay(element) {
+  element.classList.remove("visible");
+  element.setAttribute("aria-hidden", "true");
+}
+
+function clearOpeningTimer() {
+  if (openingTimer !== null) {
+    window.clearTimeout(openingTimer);
+    openingTimer = null;
+  }
+}
+
+function clearTransitionTimer() {
+  if (transitionTimer !== null) {
+    window.clearTimeout(transitionTimer);
+    transitionTimer = null;
+  }
+}
+
+function dismissOpeningOverlay() {
+  clearOpeningTimer();
+  hideOverlay(openingOverlay);
+}
+
+function buildOpeningCopy() {
+  if (dailyChallengeEnabled) {
+    const challenge = getDailyChallenge(todayKey);
+    return `Today's live briefing is ${challenge.title}. ${challenge.summary}`;
+  }
+
+  return state.mode === "trader"
+    ? `Desk is open in ${state.countryName}. Read the tape, catch the bond and currency moves, and build your score.`
+    : `Cabinet briefing for ${state.countryName}. Shape policy, guide the economy, and try to deliver the strongest term on the board.`;
+}
+
+function playOpeningOverlay() {
+  openingCopyElement.textContent = buildOpeningCopy();
+  showOverlay(openingOverlay);
+  clearOpeningTimer();
+  openingTimer = window.setTimeout(dismissOpeningOverlay, 3200);
+}
+
+function getTransitionScene(entry) {
+  if (state.mode === "trader") {
+    return {
+      kicker: `Year ${entry.year} Market Close`,
+      title:
+        entry.pnlAmount >= 0
+          ? "Trade Book Closed Higher"
+          : "The Tape Turned Against You",
+      copy: entry.headline,
+      chips: [
+        `Bonds ${formatSignedValue(entry.bondMove)}%`,
+        `FX ${formatSignedValue(entry.currencyMove)}%`,
+        `P&L ${formatMoney(entry.pnlAmount)}`
+      ]
+    };
+  }
+
+  return {
+    kicker: `Year ${entry.year} Policy Brief`,
+    title:
+      entry.growth >= 3.5
+        ? "Expansion Picked Up"
+        : entry.growth < 0
+          ? "The Economy Slipped"
+          : "A Tense Balancing Act",
+    copy: entry.note,
+    chips: [
+      `Growth ${formatSignedValue(entry.growth)}%`,
+      `Inflation ${entry.inflation.toFixed(1)}%`,
+      `Debt ${entry.nextDebt.toFixed(1)}`
+    ]
+  };
+}
+
+function playTurnOverlay(entry) {
+  const scene = getTransitionScene(entry);
+  turnKickerElement.textContent = scene.kicker;
+  turnTitleElement.textContent = scene.title;
+  turnCopyElement.textContent = scene.copy;
+  turnChipAElement.textContent = scene.chips[0];
+  turnChipBElement.textContent = scene.chips[1];
+  turnChipCElement.textContent = scene.chips[2];
+  showOverlay(turnOverlay);
+  clearTransitionTimer();
+  transitionTimer = window.setTimeout(() => hideOverlay(turnOverlay), 1650);
 }
 
 function isSupabaseConfigured() {
@@ -491,12 +597,20 @@ policyForm.addEventListener("submit", (event) => {
   event.preventDefault();
   state = applyPolicy(state, getPolicyFromForm());
   render();
+  const latestEntry = state.history.at(-1);
+  if (latestEntry) {
+    playTurnOverlay(latestEntry);
+  }
 });
 
 traderForm.addEventListener("submit", (event) => {
   event.preventDefault();
   state = applyTrade(state, getTradeFromForm());
   render();
+  const latestEntry = state.history.at(-1);
+  if (latestEntry) {
+    playTurnOverlay(latestEntry);
+  }
 });
 
 submitForm.addEventListener("submit", submitScore);
@@ -507,7 +621,9 @@ countrySelect.addEventListener("change", resetState);
 dailyChallengeToggle.addEventListener("click", () => {
   dailyChallengeEnabled = !dailyChallengeEnabled;
   resetState();
+  playOpeningOverlay();
 });
+skipOpeningButton.addEventListener("click", dismissOpeningOverlay);
 
 populateModeSelect();
 populateCountrySelect();
@@ -515,4 +631,5 @@ applyPolicyDefaults();
 resetTradeDefaults();
 syncPolicyOutputs();
 render();
+playOpeningOverlay();
 initializeSupabase();

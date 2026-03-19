@@ -4,9 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Economy Sim</title>
-    <link rel="stylesheet" href="./styles.css?v=20260319-2" />
+    <link rel="stylesheet" href="./styles.css?v=20260319-3" />
   </head>
   <body>
+    <div id="opening-overlay" class="scene-overlay opening-overlay" aria-hidden="true">
+      <div class="scene-backdrop"></div>
+      <div class="scene-grid"></div>
+      <div class="scene-orb orb-a"></div>
+      <div class="scene-orb orb-b"></div>
+      <div class="scene-panel">
+        <p class="scene-kicker">Global Markets Briefing</p>
+        <h2>Economy Sim</h2>
+        <p id="opening-copy" class="scene-copy"></p>
+        <div class="scene-ticker">
+          <span>GDP Pulse</span>
+          <span>Bond Watch</span>
+          <span>FX Flow</span>
+          <span>Election Risk</span>
+        </div>
+        <button type="button" id="skip-opening-button" class="scene-button">Skip intro</button>
+      </div>
+    </div>
+
+    <div id="turn-overlay" class="scene-overlay turn-overlay" aria-hidden="true">
+      <div class="scene-backdrop"></div>
+      <div class="scene-grid"></div>
+      <div class="scene-panel compact">
+        <p id="turn-kicker" class="scene-kicker"></p>
+        <h2 id="turn-title"></h2>
+        <p id="turn-copy" class="scene-copy"></p>
+        <div class="turn-flash">
+          <span id="turn-chip-a" class="turn-chip"></span>
+          <span id="turn-chip-b" class="turn-chip"></span>
+          <span id="turn-chip-c" class="turn-chip"></span>
+        </div>
+      </div>
+    </div>
+
     <main class="page">
       <section class="hero">
         <p class="eyebrow">Policy Game</p>
@@ -189,6 +223,6 @@
       </section>
     </main>
 
-    <script type="module" src="./src/main.js?v=20260319-2"></script>
+    <script type="module" src="./src/main.js?v=20260319-3"></script>
   </body>
 </html>
