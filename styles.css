@@ -1,0 +1,178 @@
+:root {
+  color-scheme: light;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #f3efe7;
+  color: #1a1a1a;
+  --panel: #fffaf0;
+  --border: #d4c8b0;
+  --board: #f8f4ea;
+  --snake: #2f6f4f;
+  --snake-head: #1e4f37;
+  --food: #c94c35;
+  --text-muted: #6b6254;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f3efe7 0%, #e9e0d0 100%);
+}
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.game-shell {
+  width: min(100%, 720px);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(62, 45, 24, 0.08);
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.eyebrow,
+.instructions {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+h1 {
+  margin: 6px 0 0;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+}
+
+.stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stat {
+  min-width: 88px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.stat span,
+.stat strong {
+  display: block;
+}
+
+.stat span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.board-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--board);
+  overflow: hidden;
+}
+
+.board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 1px;
+  padding: 1px;
+  background: rgba(107, 98, 84, 0.14);
+}
+
+.cell {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.cell.snake {
+  background: var(--snake);
+}
+
+.cell.head {
+  background: var(--snake-head);
+}
+
+.cell.food {
+  background: var(--food);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: inherit;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f7f2e8;
+}
+
+.instructions {
+  margin-top: 16px;
+}
+
+.controls {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+}
+
+.controls button {
+  min-width: 76px;
+}
+
+.controls > button {
+  justify-self: center;
+}
+
+.controls-row {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .game-shell {
+    padding: 18px;
+  }
+
+  .hud {
+    flex-direction: column;
+  }
+
+  .stats {
+    width: 100%;
+  }
+
+  .stat {
+    flex: 1;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Open Snake in Browser",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "open",
+      "args": [
+        "http://localhost:4173"
+      ],
+      "preLaunchTask": "Start Snake server"
+    }
+  ]
+}
