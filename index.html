@@ -88,19 +88,6 @@
         font-size: 0.95rem;
       }
 
-      .main-grid {
-        display: grid;
-        grid-template-columns: 320px minmax(0, 1fr);
-        gap: 16px;
-        min-height: 0;
-      }
-
-      .column {
-        min-height: 0;
-        display: grid;
-        gap: 16px;
-      }
-
       .section-card,
       .contact-card {
         padding: 18px 20px;
@@ -108,7 +95,7 @@
 
       .routes-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 14px;
       }
 
@@ -202,19 +189,6 @@
         color: #101b2b;
       }
 
-      .points,
-      .contact-list {
-        display: grid;
-        gap: 12px;
-      }
-
-      .info-tile {
-        padding: 14px 16px;
-        border-radius: 18px;
-        border: 1px solid var(--border);
-        background: linear-gradient(180deg, #383530 0%, #302d29 100%);
-      }
-
       .contact-card ul {
         padding-left: 18px;
         margin: 10px 0 0;
@@ -243,7 +217,6 @@
         }
 
         .hero-grid,
-        .main-grid,
         .routes-grid {
           grid-template-columns: 1fr;
         }
@@ -300,65 +273,40 @@
         </div>
       </section>
 
-      <section class="main-grid" aria-label="Homepage sections">
-        <div class="column">
-          <article class="contact-card">
-            <p class="eyebrow">Introduction</p>
-            <h2>At a glance.</h2>
-            <div class="points">
-              <div class="info-tile">
-                <h3>Bio</h3>
-                <p>London-based builder of macro and emerging-markets-focused digital products.</p>
-              </div>
-              <div class="info-tile">
-                <h3>Resume angle</h3>
-                <p>If you are hiring, the `Professional` path goes much deeper on how I work and what I can bring.</p>
-              </div>
-              <div class="info-tile">
-                <h3>Contact</h3>
-                <p>Email and LinkedIn are the fastest ways to reach me directly.</p>
-              </div>
-            </div>
+      <section class="section-card" aria-label="Homepage sections">
+        <p class="eyebrow">Site Paths</p>
+        <h2>Four parts.</h2>
+        <div class="routes-grid">
+          <article class="route-card">
+            <p class="route-kicker">1. Introduction</p>
+            <h3>Bio and contact</h3>
+            <p>The root page is the quick overview: who I am, what I build, and how to reach me.</p>
+            <a href="mailto:trounceflow@gmail.com">Email Michael</a>
           </article>
-        </div>
 
-        <div class="column">
-          <article class="section-card">
-            <p class="eyebrow">Site Paths</p>
-            <h2>Four parts.</h2>
-            <div class="routes-grid">
-              <article class="route-card">
-                <p class="route-kicker">1. Introduction</p>
-                <h3>Bio and contact</h3>
-                <p>The root page is the quick overview: who I am, what I build, and how to reach me.</p>
-                <a href="mailto:trounceflow@gmail.com">Email Michael</a>
-              </article>
+          <article class="route-card">
+            <p class="route-kicker">2. Professional</p>
+            <h3>Hiring path</h3>
+            <p>I’m looking for a job, so this route is for employers who want a fuller professional picture.</p>
+            <a href="./Professional/">Open Professional</a>
+          </article>
 
-              <article class="route-card">
-                <p class="route-kicker">2. Professional</p>
-                <h3>Hiring path</h3>
-                <p>I’m looking for a job, so this route is for employers who want a fuller professional picture.</p>
-                <a href="./Professional/">Open Professional</a>
-              </article>
+          <article class="route-card proton-card">
+            <p class="route-kicker">3. Proton</p>
+            <h3>Products brand</h3>
+            <p>Serious digital products for investment professionals. This is the commercial, no-nonsense side.</p>
+            <a href="./Proton/" class="proton-link">Open Proton</a>
+          </article>
 
-              <article class="route-card proton-card">
-                <p class="route-kicker">3. Proton</p>
-                <h3>Products brand</h3>
-                <p>Serious digital products for investment professionals. This is the commercial, no-nonsense side.</p>
-                <a href="./Proton/" class="proton-link">Open Proton</a>
-              </article>
-
-              <article class="route-card">
-                <p class="route-kicker">4. Tricksy</p>
-                <h3>Fun and games</h3>
-                <p>Three playful games live here right now: Lula, Snake, and Kaboom.</p>
-                <div class="hero-actions">
-                  <a href="./Tricksy/">Open Tricksy</a>
-                  <a href="./Tricksy/Lula/" class="secondary">Lula</a>
-                  <a href="./Tricksy/Snake/" class="secondary">Snake</a>
-                  <a href="./Tricksy/Kaboom/" class="secondary">Kaboom</a>
-                </div>
-              </article>
+          <article class="route-card">
+            <p class="route-kicker">4. Tricksy</p>
+            <h3>Fun and games</h3>
+            <p>Three playful games live here right now: Lula, Snake, and Kaboom.</p>
+            <div class="hero-actions">
+              <a href="./Tricksy/">Open Tricksy</a>
+              <a href="./Tricksy/Lula/" class="secondary">Lula</a>
+              <a href="./Tricksy/Snake/" class="secondary">Snake</a>
+              <a href="./Tricksy/Kaboom/" class="secondary">Kaboom</a>
             </div>
           </article>
         </div>
