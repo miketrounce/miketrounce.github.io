@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn More | Knowledge Machines</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --panel: #34312d;
+        --border: #45403a;
+        --muted: #b8b0a4;
+        --text: #f4f2ec;
+        --accent: #81b64c;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(129, 182, 76, 0.08), transparent 24%),
+          linear-gradient(180deg, #322f2c 0%, #2b2926 100%);
+        color: var(--text);
+      }
+
+      main {
+        width: min(100%, 800px);
+        margin: 0 auto;
+        padding: 48px 22px 60px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        padding: 40px;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.75rem;
+        color: var(--accent);
+        margin: 0 0 12px;
+      }
+
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 900;
+        margin: 0 0 24px;
+        line-height: 1.1;
+      }
+
+      h2 {
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 1.05rem;
+        margin-top: 0;
+      }
+
+      a.back {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-top: 28px;
+        transition: border-color 0.15s;
+      }
+
+      a.back:hover {
+        border-color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="card">
+        <p class="eyebrow">Learn More</p>
+        <h1>How my dashboards work</h1>
+
+        <p>
+          A dashboard needs to do things that static HTML cannot: fetch
+          live data from an API, re-render charts when new numbers arrive,
+          handle user authentication, filter and sort tables, and switch
+          between views — all without reloading the page.
+        </p>
+        <h2 style="font-size:1.3rem;margin:28px 0 12px;">React</h2>
+        <p>
+          Instead of writing raw HTML, the components are written in
+          React — small, reusable pieces of UI that manage their own
+          state and update automatically when data changes.
+        </p>
+        <h2 style="font-size:1.3rem;margin:28px 0 12px;">Vite</h2>
+        <p>
+          A build tool called Vite compiles these components into the
+          optimised HTML, CSS, and JavaScript that your browser actually
+          runs.
+        </p>
+        <p>
+          The trade-off is complexity. A plain HTML site has no dependencies
+          and no build step. A framework-based app has a package manager
+          (npm), hundreds of dependencies, a development server, and a
+          build process that must run before deployment. But for an
+          interactive, data-driven dashboard, this complexity is justified.
+        </p>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;">
+          <a class="back" href="../behind-the-scenes/" style="margin-top:0;">← Behind the Scenes</a>
+          <a class="back" href="../Knowledge-Machines/" style="margin-top:0;">Dashboard →</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
