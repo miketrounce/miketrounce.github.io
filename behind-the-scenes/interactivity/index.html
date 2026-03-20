@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Behind the Scenes: Interactivity | Michael Trounce</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --panel: #34312d;
+        --border: #45403a;
+        --muted: #b8b0a4;
+        --text: #f4f2ec;
+        --accent: #81b64c;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(129, 182, 76, 0.08), transparent 24%),
+          linear-gradient(180deg, #322f2c 0%, #2b2926 100%);
+        color: var(--text);
+      }
+
+      main {
+        width: min(100%, 800px);
+        margin: 0 auto;
+        padding: 48px 22px 60px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        padding: 40px;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.75rem;
+        color: var(--accent);
+        margin: 0 0 12px;
+      }
+
+      h1 { font-family: Georgia, serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; margin: 0 0 24px; line-height: 1.1; }
+      h2 { font-family: Georgia, serif; font-size: 1.3rem; margin: 28px 0 12px; }
+      p { color: var(--muted); line-height: 1.7; font-size: 1.05rem; margin-top: 0; }
+      code { background: rgba(129, 182, 76, 0.1); padding: 2px 6px; border-radius: 4px; font-size: 0.92em; color: var(--text); }
+
+      a.back {
+        display: inline-flex; align-items: center; padding: 10px 18px;
+        border-radius: 999px; border: 1px solid var(--border); color: var(--text);
+        text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: border-color 0.15s;
+      }
+      a.back:hover { border-color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="card">
+        <p class="eyebrow">Behind the Scenes</p>
+        <h1>How static pages can move</h1>
+
+        <p>
+          The games on Tricksy — Lula, Snake, Kaboom — are interactive.
+          Numbers change, pieces move, the screen responds to your clicks.
+          And yet these pages are written in plain HTML, CSS, and
+          JavaScript. There is no framework, no build step, and no server
+          running behind them. So how does it work?
+        </p>
+
+        <h2>JavaScript and the DOM</h2>
+        <p>
+          When your browser loads an HTML page, it builds an internal
+          model of the page called the DOM (Document Object Model).
+          JavaScript can read and change this model at any time. When it
+          does, the browser instantly redraws the affected part of the
+          screen.
+        </p>
+
+        <h2>Event listeners</h2>
+        <p>
+          JavaScript can listen for things that happen — a button click,
+          a key press, a timer firing. When an event occurs, a function
+          runs, updates the DOM, and the page changes. This is what makes
+          a game tick: the player clicks, JavaScript processes the move,
+          updates the numbers, and the browser repaints.
+        </p>
+
+        <h2>CSS transitions</h2>
+        <p>
+          Some of the visual movement — fading, sliding, colour changes —
+          is handled entirely by CSS. You define a start state and an end
+          state, and the browser smoothly animates between them. No
+          JavaScript needed for the animation itself, only a trigger to
+          change a class or property.
+        </p>
+
+        <h2>No magic, just speed</h2>
+        <p>
+          Modern browsers can repaint the screen sixty times per second.
+          A few lines of JavaScript changing a number and updating the
+          text on screen happens so fast it feels like a living
+          application. But underneath, it is still just an HTML file.
+        </p>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;">
+          <a class="back" href="../../Tricksy/">← Back</a>
+          <a class="back" href="../">Behind the Scenes →</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

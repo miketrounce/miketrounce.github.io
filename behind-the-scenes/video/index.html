@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Behind the Scenes: Video | Michael Trounce</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --panel: #34312d;
+        --border: #45403a;
+        --muted: #b8b0a4;
+        --text: #f4f2ec;
+        --accent: #81b64c;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(129, 182, 76, 0.08), transparent 24%),
+          linear-gradient(180deg, #322f2c 0%, #2b2926 100%);
+        color: var(--text);
+      }
+
+      main {
+        width: min(100%, 800px);
+        margin: 0 auto;
+        padding: 48px 22px 60px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        padding: 40px;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.75rem;
+        color: var(--accent);
+        margin: 0 0 12px;
+      }
+
+      h1 { font-family: Georgia, serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; margin: 0 0 24px; line-height: 1.1; }
+      h2 { font-family: Georgia, serif; font-size: 1.3rem; margin: 28px 0 12px; }
+      p { color: var(--muted); line-height: 1.7; font-size: 1.05rem; margin-top: 0; }
+      code { background: rgba(129, 182, 76, 0.1); padding: 2px 6px; border-radius: 4px; font-size: 0.92em; color: var(--text); }
+
+      a.back {
+        display: inline-flex; align-items: center; padding: 10px 18px;
+        border-radius: 999px; border: 1px solid var(--border); color: var(--text);
+        text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: border-color 0.15s;
+      }
+      a.back:hover { border-color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="card">
+        <p class="eyebrow">Behind the Scenes</p>
+        <h1>How video works on a webpage</h1>
+
+        <p>
+          The video you just watched is a standard MP4 file sitting in
+          the same folder as the HTML page. There is no streaming service
+          or video platform involved.
+        </p>
+
+        <h2>The video tag</h2>
+        <p>
+          HTML has a built-in <code>&lt;video&gt;</code> element. You
+          point it at a file, and the browser handles everything else —
+          loading, buffering, play/pause controls, fullscreen, and
+          volume. No JavaScript required.
+        </p>
+
+        <h2>How it loads</h2>
+        <p>
+          When you open the page, the browser sees the
+          <code>&lt;video&gt;</code> tag and starts fetching the MP4
+          file from the server. With <code>preload="metadata"</code>,
+          it only downloads enough to show the duration and first frame
+          until you press play. Then it streams the rest progressively.
+        </p>
+
+        <h2>Why not YouTube?</h2>
+        <p>
+          You could embed a YouTube or Vimeo player instead. The
+          trade-off is control: a self-hosted file has no ads, no
+          tracking, no external dependencies, and loads instantly from
+          the same server as the page. The downside is file size — video
+          files are large, and GitHub Pages has a 100MB per-file limit.
+        </p>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;">
+          <a class="back" href="../../Professional/">← Back</a>
+          <a class="back" href="../">Behind the Scenes →</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
