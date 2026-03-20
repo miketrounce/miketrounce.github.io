@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn More | Knowledge Machines</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --bg: #10141c;
+        --panel: #18202c;
+        --panel-strong: #1f2938;
+        --border: #2c3b4d;
+        --muted: #b7c4d4;
+        --text: #f4f7fb;
+        --accent: #6fb5ff;
+        --accent-strong: #3f80d3;
+        --shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #121824 0%, #0c1119 100%);
+        color: var(--text);
+      }
+
+      main {
+        width: min(100%, 800px);
+        margin: 0 auto;
+        padding: 48px 22px 60px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(180deg, var(--panel-strong) 0%, var(--panel) 100%);
+        box-shadow: var(--shadow);
+        padding: 40px;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.75rem;
+        color: #b8d8ff;
+        margin: 0 0 12px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 900;
+        margin: 0 0 24px;
+        line-height: 1.1;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 1.05rem;
+        margin-top: 0;
+      }
+
+      a.back {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-top: 28px;
+        transition: border-color 0.15s;
+      }
+
+      a.back:hover {
+        border-color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="card">
+        <p class="eyebrow">Knowledge Machines</p>
+        <h1>Learn More</h1>
+        <p>
+          Knowledge Machines are dashboard websites. The technology behind
+          their appearance is Vite. They allow you to monitor a specific
+          data-driven situation, such as shipping activity in the Taiwan
+          Strait.
+        </p>
+        <p>
+          They come with a database (typically Supabase) which contains
+          the data you see on the dashboard. You can fetch that data via API.
+        </p>
+        <p>
+          The method used to get data for the database is a scheduler —
+          work is done regularly to go and fetch ("pull") data from
+          somewhere, e.g. X or Instagram. This is the data pipeline, and
+          nowadays this is managed by an agent such as Claude Code
+          Scheduler rather than a script and cron job.
+        </p>
+        <p>
+          Knowledge Machines are run in the cloud. The code is stored on
+          GitHub, and the website is hosted for free using GitHub Pages.
+          There are no servers to manage — push your code and the
+          dashboard is live.
+        </p>
+
+        <!-- Process flow diagram -->
+        <svg viewBox="0 0 700 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;margin:28px 0 8px;display:block;">
+          <!-- Boxes -->
+          <rect x="0" y="30" width="120" height="56" rx="10" fill="#1f2938" stroke="#2c3b4d" stroke-width="1.5"/>
+          <rect x="155" y="30" width="120" height="56" rx="10" fill="#1f2938" stroke="#2c3b4d" stroke-width="1.5"/>
+          <rect x="310" y="30" width="120" height="56" rx="10" fill="#1f2938" stroke="#2c3b4d" stroke-width="1.5"/>
+          <rect x="465" y="30" width="120" height="56" rx="10" fill="#1f2938" stroke="#2c3b4d" stroke-width="1.5"/>
+          <rect x="580" y="30" width="120" height="56" rx="10" fill="#1f2938" stroke="#6fb5ff" stroke-width="1.5"/>
+
+          <!-- Labels -->
+          <text x="60" y="10" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#6fb5ff" font-weight="700" letter-spacing="0.5">DATA SOURCES</text>
+          <text x="60" y="54" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="11" fill="#f4f7fb" font-weight="700">X / Instagram</text>
+          <text x="60" y="72" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#b7c4d4">APIs, feeds, sites</text>
+
+          <text x="215" y="10" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#6fb5ff" font-weight="700" letter-spacing="0.5">SCHEDULER</text>
+          <text x="215" y="54" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="11" fill="#f4f7fb" font-weight="700">Claude Agent</text>
+          <text x="215" y="72" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#b7c4d4">pulls data regularly</text>
+
+          <text x="370" y="10" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#6fb5ff" font-weight="700" letter-spacing="0.5">DATABASE</text>
+          <text x="370" y="54" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="11" fill="#f4f7fb" font-weight="700">Supabase</text>
+          <text x="370" y="72" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#b7c4d4">stores structured data</text>
+
+          <text x="525" y="10" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#6fb5ff" font-weight="700" letter-spacing="0.5">API</text>
+          <text x="525" y="54" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="11" fill="#f4f7fb" font-weight="700">REST / SQL</text>
+          <text x="525" y="72" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#b7c4d4">fetch your data</text>
+
+          <text x="640" y="10" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#6fb5ff" font-weight="700" letter-spacing="0.5">DASHBOARD</text>
+          <text x="640" y="54" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="11" fill="#f4f7fb" font-weight="700">Vite App</text>
+          <text x="640" y="72" text-anchor="middle" font-family="Helvetica, sans-serif" font-size="9" fill="#b7c4d4">you monitor this</text>
+
+          <!-- Arrows -->
+          <path d="M122,58 L153,58" stroke="#6fb5ff" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+          <path d="M277,58 L308,58" stroke="#6fb5ff" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+          <path d="M432,58 L463,58" stroke="#6fb5ff" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+          <path d="M587,58 L578,58" stroke="#6fb5ff" stroke-width="1.5" fill="none" marker-end="url(#arrowLeft)"/>
+
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-auto">
+              <path d="M0,0 L10,5 L0,10Z" fill="#6fb5ff"/>
+            </marker>
+            <marker id="arrowLeft" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-auto">
+              <path d="M10,0 L0,5 L10,10Z" fill="#6fb5ff"/>
+            </marker>
+          </defs>
+        </svg>
+
+        <a class="back" href="../">← Back to Knowledge Machines</a>
+      </div>
+    </main>
+  </body>
+</html>
