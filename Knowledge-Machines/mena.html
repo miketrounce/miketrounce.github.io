@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MENA | Knowledge Machines</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --bg: #10141c;
+        --panel: #18202c;
+        --panel-strong: #1f2938;
+        --border: #2c3b4d;
+        --muted: #b7c4d4;
+        --text: #f4f7fb;
+        --accent: #6fb5ff;
+        --accent-strong: #3f80d3;
+        --red: #e85454;
+        --green: #28c840;
+        --amber: #febc2e;
+        --shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #121824 0%, #0c1119 100%);
+        color: var(--text);
+      }
+
+      header {
+        padding: 20px 28px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .logo {
+        font-weight: 900;
+        font-size: 1.4rem;
+        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: rgba(40, 200, 64, 0.12);
+        border: 1px solid rgba(40, 200, 64, 0.25);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--green);
+      }
+
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }
+
+      .header-nav {
+        display: flex;
+        gap: 8px;
+      }
+
+      .header-nav a {
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+        transition: border-color 0.15s;
+      }
+
+      .header-nav a:hover {
+        border-color: var(--accent);
+        color: var(--text);
+      }
+
+      main {
+        width: min(100%, 1400px);
+        margin: 0 auto;
+        padding: 24px 22px 48px;
+      }
+
+      /* Filter tabs */
+      .tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .tab {
+        padding: 8px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .tab:hover, .tab.active {
+        background: var(--accent);
+        color: #0d1724;
+        border-color: var(--accent);
+      }
+
+      /* Section */
+      .section {
+        margin-bottom: 28px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .section-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .section-count {
+        font-size: 0.75rem;
+        color: var(--muted);
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--panel-strong);
+      }
+
+      /* Card grid */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: linear-gradient(180deg, var(--panel-strong) 0%, var(--panel) 100%);
+        padding: 20px;
+        box-shadow: var(--shadow);
+      }
+
+      .card-eyebrow {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      /* Chart placeholder */
+      .chart-placeholder {
+        width: 100%;
+        height: 120px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(111,181,255,0.06) 0%, rgba(111,181,255,0.02) 100%);
+        border: 1px solid var(--border);
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+      }
+
+      /* KPI row */
+      .kpi-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .kpi {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--panel-strong);
+        padding: 14px 16px;
+      }
+
+      .kpi-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .kpi-value {
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+
+      .kpi-change {
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-top: 2px;
+      }
+
+      .up { color: var(--green); }
+      .down { color: var(--red); }
+      .neutral { color: var(--amber); }
+
+      /* Colour-coded section icons */
+      .icon-conflict { background: rgba(232, 84, 84, 0.15); color: var(--red); }
+      .icon-energy { background: rgba(254, 188, 46, 0.15); color: var(--amber); }
+      .icon-commodities { background: rgba(111, 181, 255, 0.15); color: var(--accent); }
+      .icon-macro { background: rgba(40, 200, 64, 0.15); color: var(--green); }
+      .icon-political { background: rgba(180, 130, 255, 0.15); color: #b482ff; }
+
+      @media (max-width: 700px) {
+        .card-grid { grid-template-columns: 1fr; }
+        .kpi-row { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-left">
+        <div class="logo">MENA <span>Monitor</span></div>
+        <div class="status-badge"><div class="status-dot"></div> Live</div>
+      </div>
+      <nav class="header-nav">
+        <a href="../">Home</a>
+        <a href="./">Knowledge Machines</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Filter tabs -->
+      <div class="tabs">
+        <button class="tab active">All</button>
+        <button class="tab">Political</button>
+        <button class="tab">Conflict</button>
+        <button class="tab">Energy Flows</button>
+        <button class="tab">Commodities</button>
+        <button class="tab">Macro</button>
+      </div>
+
+      <!-- KPI summary row -->
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-label">Brent Crude</div>
+          <div class="kpi-value">$94.2</div>
+          <div class="kpi-change up">+3.8% this week</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Hormuz Tanker Transits</div>
+          <div class="kpi-value">14/day</div>
+          <div class="kpi-change down">-42% vs avg</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Gold</div>
+          <div class="kpi-value">$2,284</div>
+          <div class="kpi-change up">+1.2%</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">VIX</div>
+          <div class="kpi-value">22.4</div>
+          <div class="kpi-change neutral">+0.6</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">USD/IRR</div>
+          <div class="kpi-value">612,000</div>
+          <div class="kpi-change down">-8.1%</div>
+        </div>
+      </div>
+
+      <!-- Political -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon icon-political">&#9878;</div>
+          <span class="section-title">Political</span>
+          <span class="section-count">3 items</span>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-eyebrow">Leadership</div>
+            <h3>Iran regime stability tracker</h3>
+            <p>Tracking succession signals, internal power shifts, and leadership communication patterns.</p>
+            <div class="chart-placeholder">Chart: leadership stability index</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Diplomacy</div>
+            <h3>Ceasefire probability</h3>
+            <p>Aggregated from diplomatic signals, betting markets, and official statements.</p>
+            <div class="chart-placeholder">Chart: ceasefire odds over time</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Sanctions</div>
+            <h3>Sanctions escalation timeline</h3>
+            <p>Tracking new sanctions packages, waivers, and enforcement actions.</p>
+            <div class="chart-placeholder">Chart: sanctions event log</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conflict -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon icon-conflict">&#9888;</div>
+          <span class="section-title">Conflict</span>
+          <span class="section-count">3 items</span>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-eyebrow">Attacks</div>
+            <h3>Drone &amp; missile strike tracker</h3>
+            <p>Daily count of reported strikes on Gulf infrastructure, shipping, and military targets.</p>
+            <div class="chart-placeholder">Chart: daily strike count</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Shipping</div>
+            <h3>Maritime incident log</h3>
+            <p>Seizures, diversions, and attacks on commercial vessels in the Gulf and Gulf of Oman.</p>
+            <div class="chart-placeholder">Chart: incidents by week</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Airspace</div>
+            <h3>Flight path disruptions</h3>
+            <p>Tracking airspace closures and rerouting of commercial flights over the region.</p>
+            <div class="chart-placeholder">Chart: flight reroutes</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Energy Flows -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon icon-energy">&#9889;</div>
+          <span class="section-title">Energy Flows</span>
+          <span class="section-count">3 items</span>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-eyebrow">Strait of Hormuz</div>
+            <h3>Tanker transit volume</h3>
+            <p>Daily tanker count through Hormuz, tracking crude, LNG, and product carriers.</p>
+            <div class="chart-placeholder">Chart: daily transits</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Production</div>
+            <h3>OPEC+ output tracker</h3>
+            <p>Monitoring production levels, spare capacity, and emergency drawdowns across Gulf producers.</p>
+            <div class="chart-placeholder">Chart: production vs quota</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Infrastructure</div>
+            <h3>Pipeline &amp; terminal status</h3>
+            <p>Operational status of key export terminals, refineries, and pipeline routes.</p>
+            <div class="chart-placeholder">Chart: facility status map</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Commodities -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon icon-commodities">&#9672;</div>
+          <span class="section-title">Commodities</span>
+          <span class="section-count">3 items</span>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-eyebrow">Crude</div>
+            <h3>Brent &amp; WTI futures</h3>
+            <p>Front-month and curve structure for global crude benchmarks.</p>
+            <div class="chart-placeholder">Chart: crude futures curve</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Refined Products</div>
+            <h3>Diesel, jet fuel &amp; gasoline cracks</h3>
+            <p>Refining margins and product spreads showing downstream pass-through.</p>
+            <div class="chart-placeholder">Chart: crack spreads</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Safe Havens</div>
+            <h3>Gold, USD &amp; treasuries</h3>
+            <p>Traditional haven flows and their sensitivity to escalation events.</p>
+            <div class="chart-placeholder">Chart: haven asset performance</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Macro -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon icon-macro">&#9650;</div>
+          <span class="section-title">Macro</span>
+          <span class="section-count">3 items</span>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-eyebrow">Inflation</div>
+            <h3>Energy-driven inflation pass-through</h3>
+            <p>Tracking how oil price shocks feed into headline CPI and breakevens.</p>
+            <div class="chart-placeholder">Chart: oil vs breakevens</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">Rates</div>
+            <h3>Central bank repricing</h3>
+            <p>Rate expectations shifts driven by energy supply disruption scenarios.</p>
+            <div class="chart-placeholder">Chart: rate expectations</div>
+          </div>
+          <div class="card">
+            <div class="card-eyebrow">FX</div>
+            <h3>EM currency stress</h3>
+            <p>Oil-importing EM currencies most exposed to sustained energy price rises.</p>
+            <div class="chart-placeholder">Chart: EM FX heatmap</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
