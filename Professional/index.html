@@ -4,132 +4,210 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Michael Trounce | Professional</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        --panel: #34312d;
+        --border: #45403a;
+        --muted: #b8b0a4;
+        --text: #f4f2ec;
+        --accent: #d6aa58;
+        --accent-dark: #b88733;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(214, 170, 88, 0.08), transparent 24%),
+          linear-gradient(180deg, #322f2c 0%, #2b2926 100%);
+        color: var(--text);
+      }
+
+      main {
+        width: min(100%, 960px);
+        margin: 0 auto;
+        padding: 40px 22px 60px;
+      }
+
+      .hero {
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+        padding: 36px;
+        text-align: center;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.75rem;
+        color: var(--accent);
+        margin: 0 0 12px;
+      }
+
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2.4rem, 6vw, 3.6rem);
+        font-weight: 900;
+        margin: 0 0 8px;
+        line-height: 1;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.6;
+        margin-top: 0;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 32px;
+      }
+
+      .video-container {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, #2a2520 0%, #1e1b18 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .video-container:hover {
+        border-color: var(--accent);
+      }
+
+      .play-btn {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        box-shadow: 0 8px 24px rgba(214, 170, 88, 0.2);
+        transition: transform 0.15s;
+      }
+
+      .video-container:hover .play-btn {
+        transform: scale(1.08);
+      }
+
+      .play-btn svg {
+        width: 32px;
+        height: 32px;
+        margin-left: 4px;
+      }
+
+      .video-label {
+        color: var(--muted);
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+      }
+
+      .nav-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 28px;
+      }
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 11px 18px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      a.primary {
+        background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+        color: #24180a;
+      }
+
+      a.secondary {
+        color: var(--text);
+        border: 1px solid var(--border);
+        background: transparent;
+      }
+
+      .contact {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: linear-gradient(180deg, #3b3833 0%, #2f2c28 100%);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .contact span {
+        white-space: nowrap;
+      }
+
+      .contact a {
+        display: inline;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        color: var(--accent);
+        font-weight: 600;
+      }
+    </style>
   </head>
   <body>
-    <main class="page">
+    <main>
       <section class="hero">
         <p class="eyebrow">Professional</p>
         <h1>Michael Trounce</h1>
-        <p class="intro">
-          Builder of EM and Global Macro products, focused on practical tools,
-          fast prototyping, clear product thinking, and actively looking for my
-          next role.
-        </p>
-        <div class="hero-actions">
-          <a href="../">Back home</a>
-          <a href="../Knowledge-Machines/" class="secondary">Visit Knowledge Machines</a>
-          <a href="../Tricksy/" class="secondary">Visit Tricksy</a>
+        <p class="subtitle">Builder of EM and Global Macro products, looking for my next role.</p>
+
+        <div class="video-container" id="videoTrigger">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24" fill="#24180a" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="6,3 20,12 6,21"/>
+            </svg>
+          </div>
+          <span class="video-label">Watch the explainer video</span>
+        </div>
+
+        <div class="nav-actions">
+          <a class="primary" href="mailto:trounceflow@gmail.com">Get in touch</a>
+          <a class="secondary" href="../">Back home</a>
+          <a class="secondary" href="../Knowledge-Machines/">Knowledge Machines</a>
+          <a class="secondary" href="../Tricksy/">Tricksy</a>
         </div>
       </section>
 
-      <section class="section">
-        <div class="section-heading">
-          <p class="eyebrow">About</p>
-          <h2>Building practical tools with a markets mindset.</h2>
-        </div>
-        <div class="about-grid">
-          <article class="card">
-            <h3>What I build</h3>
-            <p>
-              I work on products shaped by real-world financial workflows, with
-              a focus on clarity, speed, and usefulness.
-            </p>
-          </article>
-          <article class="card">
-            <h3>How I work</h3>
-            <p>
-              I like moving from idea to working prototype quickly, keeping the
-              path simple and the output easy to understand.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Open to work</h3>
-            <p>
-              I am actively looking for a job and would be glad to speak with
-              teams who think my product and markets background could help.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Portfolio scope</h3>
-            <p>
-              I do not own the IP of the professional products that I have
-              built, so public examples here focus on personal work and the
-              way I think about product building.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Projects</p>
-          <h2>Selected public-facing work.</h2>
-        </div>
-        <div class="projects">
-          <article class="project-card">
-            <div>
-              <p class="project-type">Playful flagship</p>
-              <h3>Lula</h3>
-              <p>
-                A macro strategy game with Politician and Trader variants,
-                daily challenges, and a live leaderboard.
-              </p>
-            </div>
-            <a href="../Tricksy/Lula/">Open Lula</a>
-          </article>
-          <article class="project-card">
-            <div>
-              <p class="project-type">Arcade build</p>
-              <h3>Classic Snake</h3>
-              <p>
-                A minimal browser-based Snake game built as my first Codex
-                get-started project.
-              </p>
-            </div>
-            <a href="../Tricksy/Snake/">Open Snake</a>
-          </article>
-          <article class="project-card">
-            <div>
-              <p class="project-type">Chemistry comedy</p>
-              <h3>Kaboom</h3>
-              <p>
-                A playful chemistry-mixing game where absurd reactions and lab
-                chaos are the whole point.
-              </p>
-            </div>
-            <a href="../Tricksy/Kaboom/">Open Kaboom</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="contact">
-        <div class="section-heading">
-          <p class="eyebrow">Contact</p>
-          <h2>Let’s connect.</h2>
-        </div>
-        <div class="contact-card">
-          <p>
-            I am based in London, UK. If you would like to connect, the best
-            way is by email, phone, WhatsApp, or LinkedIn.
-          </p>
-          <ul>
-            <li>Email: trounceflow@gmail.com</li>
-            <li>Phone / WhatsApp: +44 7887 546080</li>
-            <li>
-              GitHub:
-              <a href="https://github.com/miketrounce">github.com/miketrounce</a>
-            </li>
-            <li>
-              LinkedIn:
-              <a href="https://www.linkedin.com/in/michael-trounce/"
-                >linkedin.com/in/michael-trounce</a
-              >
-            </li>
-            <li>Location: London, UK</li>
-          </ul>
-        </div>
-      </section>
+      <div class="contact">
+        <span>trounceflow@gmail.com</span>
+        <span>+44 7887 546080</span>
+        <span><a href="https://www.linkedin.com/in/michael-trounce/">LinkedIn</a></span>
+        <span><a href="https://github.com/miketrounce">GitHub</a></span>
+        <span>London, UK</span>
+      </div>
     </main>
   </body>
 </html>
