@@ -407,22 +407,25 @@
     <div class="video-overlay" id="videoOverlay" onclick="closeVideo()">
       <div class="video-wrapper" onclick="event.stopPropagation()">
         <button class="video-close" onclick="closeVideo()">&times;</button>
-        <iframe id="videoFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <video id="videoPlayer" controls preload="metadata" style="width:100%;height:100%;border-radius:16px;">
+          <source src="MENATrailer.mov" type="video/quicktime">
+          <source src="MENATrailer.mov" type="video/mp4">
+          Your browser does not support this video.
+        </video>
       </div>
     </div>
 
     <script>
-      // Replace this URL with your real video when ready
-      const VIDEO_URL = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
-
       function openVideo() {
-        document.getElementById('videoFrame').src = VIDEO_URL;
         document.getElementById('videoOverlay').classList.add('open');
+        document.getElementById('videoPlayer').play();
       }
 
       function closeVideo() {
+        var v = document.getElementById('videoPlayer');
+        v.pause();
+        v.currentTime = 0;
         document.getElementById('videoOverlay').classList.remove('open');
-        document.getElementById('videoFrame').src = '';
       }
 
       document.addEventListener('keydown', function(e) {
